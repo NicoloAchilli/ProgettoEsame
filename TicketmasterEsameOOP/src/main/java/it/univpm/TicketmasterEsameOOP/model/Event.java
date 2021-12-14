@@ -1,34 +1,50 @@
 package it.univpm.TicketmasterEsameOOP.model;
 
-public class Event {
+public class Event extends Country {
 
 	private String name;
-	private long id;
-	private String type;
+	private String id;
+	private String genre;
+	private long date;
 	
-	public Event(String name, long id, String type) {
+	public Event(String statesName, String name, String id, String genre, long date) {
+		super(statesName);
 		this.name = name;
 		this.id = id;
-		this.type = type;
+		this.genre = genre;
+		this.date = date;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getId() {
+
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public String getType() {
-		return type;
+
+	public String getGenre() {
+		return genre;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
 	}
 	
 	
