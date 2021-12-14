@@ -4,33 +4,41 @@ public class Event extends Country {
 
 	private String name;
 	private long id;
-	private String type;
-	private int numEventi;
-
-	public Event(String statesName, String name, long id, String type, int numEventi) {
+	private String genre;
+	
+	public Event(String statesName, String name, long id, String genre) {
 		super(statesName);
 		this.name = name;
 		this.id = id;
-		this.type = type;
-		this.numEventi = numEventi;
+		this.genre = genre;
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public long getId() {
 		return id;
 	}
 
-	public String getType() {
-		return type;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public int getNumEventi() {
-		return numEventi;
+	public String getGenre() {
+		return genre;
 	}
 
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 	
 	
+
+	
+
 }

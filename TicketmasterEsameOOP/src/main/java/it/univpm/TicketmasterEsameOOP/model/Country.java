@@ -16,5 +16,7 @@ public class Country {
 	public void setStatesName(String statesName) {
 		this.statesName = statesName;
 	}
+
+	
 	
 }
