@@ -4,42 +4,49 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.net.URLConnection;
-
+import java.text.ParseException;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Service;
-@Service
+
+
 public class ServiceImpl implements Service{
 
-	private String URL = "https://app.ticketmaster.com/discovery/v2/events.json?";
+	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
-	@Override
-	public JSONObject getJSONEvents (String country) {
-		JSONObject Events=null;
+	//@Override
+	public JSONObject getJSONEvent(String country) {
+		JSONObject event=null;
 		
+	try {
+
+		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apiKey).openConnection();
+		InputStream in = openConnection.getInputStream();
+
+		String data = "";
+		String line = "";
 		try {
-			URLConnection openConnection=new url(URL + "&apikey=" + apiKey);
-			InputStream in = openConnection.getInputStream();
-		
-			String data="";
-			String line="";
-			try {
-				InputStreamReader inR =new InputStreamReader(in);
-				BufferedReader buf =new BufferedReader(inR);
-				
-				while ((line=buf.readLine() ) !=null) {
-					data+=line;
-				}	
-			}finally {
-				in.close();
+			InputStreamReader inR = new InputStreamReader( in );
+			BufferedReader buf = new BufferedReader( inR );
+
+			while ( ( line = buf.readLine() ) != null ) {
+				data+= line;
 			}
-			country=(JSONObject)JSONValue.parseWithException(data);		
-	}catch(IOException | ParseException e) {
+		} finally {
+			in.close();
+		}
+		
+	      event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		//(JSONArray) JSONValue.parseWithException(data);	//parse JSON Array
+		
+	} catch (IOException e) {
 		e.printStackTrace();
-	}catch (Exception e) {
+	} catch (Exception e) {
 		e.printStackTrace();
 	}
 	
+	return event;
+}
 }
