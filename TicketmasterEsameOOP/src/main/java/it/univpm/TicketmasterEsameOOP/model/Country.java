@@ -2,20 +2,21 @@ package it.univpm.TicketmasterEsameOOP.model;
 
 public class Country {
 
-	private String statesName;
+	private String country;
 
-	public Country(String statesName) {
-		
-		this.statesName = statesName;
+	public Country(String country) {
+		this.country = country;
 	}
 
-	public String getStatesName() {
-		return statesName;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setStatesName(String statesName) {
-		this.statesName = statesName;
+	public void setCountry(String country) {
+		this.country = country;
 	}
+
+	
 
 	
 	
