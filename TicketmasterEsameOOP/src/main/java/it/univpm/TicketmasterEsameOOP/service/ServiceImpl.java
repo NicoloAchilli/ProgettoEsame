@@ -1,6 +1,7 @@
 package it.univpm.TicketmasterEsameOOP.service;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,21 +13,21 @@ import org.json.simple.JSONValue;
 
 
 public class ServiceImpl implements Service{
-
-	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
+	
+	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?&countryCode=";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
 	//@Override
-	public JSONObject getJSONEvent(String country) {
-		JSONObject event=null;
+	public String getJSONEvents(String country) {
+		//JSONObject event=null;
+		String data = "";
+		String line = "";
 		
 	try {
 
-		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apiKey).openConnection();
+		URLConnection openConnection = new URL(url + "PL" + "&apikey=" + apiKey).openConnection();
 		InputStream in = openConnection.getInputStream();
 
-		String data = "";
-		String line = "";
 		try {
 			InputStreamReader inR = new InputStreamReader( in );
 			BufferedReader buf = new BufferedReader( inR );
@@ -38,7 +39,7 @@ public class ServiceImpl implements Service{
 			in.close();
 		}
 		
-	      event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		//event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
 		//(JSONArray) JSONValue.parseWithException(data);	//parse JSON Array
 		
 	} catch (IOException e) {
@@ -47,6 +48,6 @@ public class ServiceImpl implements Service{
 		e.printStackTrace();
 	}
 	
-	return event;
-}
+	return data;
+	}
 }
