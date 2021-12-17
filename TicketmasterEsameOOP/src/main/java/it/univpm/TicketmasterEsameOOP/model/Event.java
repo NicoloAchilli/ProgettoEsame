@@ -3,10 +3,10 @@ package it.univpm.TicketmasterEsameOOP.model;
 public class Event extends Country {
 
 	private String name;
-	private long id;
+	private String id;
 	private String genre;
 	
-	public Event(String statesName, String name, long id, String genre) {
+	public Event(String statesName, String name, String id, String genre) {
 		super(statesName);
 		this.name = name;
 		this.id = id;
@@ -21,11 +21,11 @@ public class Event extends Country {
 		this.name = name;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

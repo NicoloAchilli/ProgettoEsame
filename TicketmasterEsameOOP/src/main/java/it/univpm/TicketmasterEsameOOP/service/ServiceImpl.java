@@ -11,18 +11,21 @@ import java.text.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import it.univpm.TicketmasterEsameOOP.model.Country;
+import it.univpm.TicketmasterEsameOOP.model.Event;
+
 public class ServiceImpl implements Service{
 
-	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
-	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
+	private String url = "https://app.ticketmaster.com/discovery/v2";
+	private String apikey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
 	//@Override
-	public JSONObject getJSONEvent(String country) {
+	public JSONObject getJSONEvents(String country) {
 		JSONObject event = null;
 	
 	try {
 
-		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apiKey).openConnection();
+		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apikey).openConnection();
 		InputStream in = openConnection.getInputStream();
 
 		String data = "";
@@ -40,7 +43,7 @@ public class ServiceImpl implements Service{
 		//JSONArray obj = (JSONArray) JSONValue.parseWithException(data);	//parse JSON Array
 		event = (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
 		
-	} catch (IOException | ParseException e) {
+	} catch (IOException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -48,4 +51,17 @@ public class ServiceImpl implements Service{
 	
 	return event;
 }
+
+	@Override
+	public JSONObject toJSON(Country country) {
+		return null;
+	}
+
+	
+
+	@Override
+	public Event getEvent(JSONObject event) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
