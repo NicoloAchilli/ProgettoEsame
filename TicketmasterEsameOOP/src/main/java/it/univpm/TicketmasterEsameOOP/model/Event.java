@@ -5,12 +5,14 @@ public class Event extends Country {
 	private String name;
 	private long id;
 	private String genre;
+	private int date;
 	
-	public Event(String statesName, String name, long id, String genre) {
+	public Event(String statesName, String name, long id, String genre,int date) {
 		super(statesName);
 		this.name = name;
 		this.id = id;
 		this.genre = genre;
+		this.date=date;
 	}
 
 	public String getName() {
@@ -36,9 +38,13 @@ public class Event extends Country {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	
-	
 
-	
+	int getDate() {
+		return date;
+	}
+
+	void setDate(int date) {
+		this.date = date;
+	}
 
 }

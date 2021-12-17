@@ -17,15 +17,83 @@ public class ServiceImpl implements Service{
 	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?&countryCode=";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
-	//@Override
-	public String getJSONEvents(String country) {
-		//JSONObject event=null;
+	@Override
+	public String getJSONEventsPL() {
+		
 		String data = "";
 		String line = "";
 		
 	try {
 
 		URLConnection openConnection = new URL(url + "PL" + "&apikey=" + apiKey).openConnection();
+		InputStream in = openConnection.getInputStream();
+
+		try {
+			InputStreamReader inR = new InputStreamReader( in );
+			BufferedReader buf = new BufferedReader( inR );
+
+			while ( ( line = buf.readLine() ) != null ) {
+				data+= line;
+			}
+		} finally {
+			in.close();
+		}
+		
+		/*JSONObject event;
+		event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		System.out.print(event);*/
+
+	} catch (IOException e) {
+		e.printStackTrace();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return data;
+	}
+	
+//  ------------------------------------------------------------
+
+public String getJSONEvents(String country) {
+		
+		String data = "";
+		String line = "";
+		
+	try {
+
+		URLConnection openConnection = new URL(url + country + "&apikey=" + apiKey).openConnection();
+		InputStream in = openConnection.getInputStream();
+
+		try {
+			InputStreamReader inR = new InputStreamReader( in );
+			BufferedReader buf = new BufferedReader( inR );
+
+			while ( ( line = buf.readLine() ) != null ) {
+				data+= line;
+			}
+		} finally {
+			in.close();
+		}
+		
+		/*JSONObject event;
+		event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		System.out.print(event);*/
+
+	} catch (IOException e) {
+		e.printStackTrace();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return data;
+	}
+// --------------------------------
+
+	public String getTypeEvent() {
+		String data = "";
+		String line = "";
+		
+	try {
+
+		URLConnection openConnection = new URL("https://app.ticketmaster.com/discovery/v2/classifications.json?" + "&countryCode=PL"  +"&apikey=" + apiKey).openConnection();
 		InputStream in = openConnection.getInputStream();
 
 		try {
