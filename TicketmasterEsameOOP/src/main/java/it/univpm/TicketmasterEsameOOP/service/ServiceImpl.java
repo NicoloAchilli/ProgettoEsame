@@ -1,35 +1,37 @@
 package it.univpm.TicketmasterEsameOOP.service;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
-
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
 
 import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
 public class ServiceImpl implements Service{
 
-	private String url = "https://app.ticketmaster.com/discovery/v2";
-	private String apikey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
+	
+	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?&countryCode=";
+	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
 	//@Override
-	public JSONObject getJSONEvents(String country) {
-		JSONObject event = null;
-	
-	try {
-
-		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apikey).openConnection();
-		InputStream in = openConnection.getInputStream();
-
+	public String getJSONEvents(String country) {
+		//JSONObject event=null;
 		String data = "";
 		String line = "";
+		
+	try {
+
+		URLConnection openConnection = new URL(url + "PL" + "&apikey=" + apiKey).openConnection();
+		InputStream in = openConnection.getInputStream();
+
 		try {
 			InputStreamReader inR = new InputStreamReader( in );
 			BufferedReader buf = new BufferedReader( inR );
@@ -40,8 +42,8 @@ public class ServiceImpl implements Service{
 		} finally {
 			in.close();
 		}
-		//JSONArray obj = (JSONArray) JSONValue.parseWithException(data);	//parse JSON Array
-		event = (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		//event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		//(JSONArray) JSONValue.parseWithException(data);	//parse JSON Array
 		
 	} catch (IOException e) {
 		e.printStackTrace();
@@ -49,19 +51,10 @@ public class ServiceImpl implements Service{
 		e.printStackTrace();
 	}
 	
-	return event;
-}
-
-	@Override
-	public JSONObject toJSON(Country country) {
-		return null;
+	return data;
 	}
+}
 
 	
 
-	@Override
-	public Event getEvent(JSONObject event) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
+	
