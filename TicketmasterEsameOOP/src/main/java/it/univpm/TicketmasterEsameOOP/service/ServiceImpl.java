@@ -11,6 +11,8 @@ import java.text.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import it.univpm.TicketmasterEsameOOP.model.Event;
+
 
 public class ServiceImpl implements Service{
 	
@@ -18,8 +20,8 @@ public class ServiceImpl implements Service{
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
 	@Override
-	public String getJSONEventsPL() {
-		
+	public JSONObject getJSONEventsPL() {
+		JSONObject event=null;
 		String data = "";
 		String line = "";
 		
@@ -39,22 +41,21 @@ public class ServiceImpl implements Service{
 			in.close();
 		}
 		
-		/*JSONObject event;
+		
 		event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
-		System.out.print(event);*/
-
+		
 	} catch (IOException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	return data;
+	return event;
 	}
 	
 //  ------------------------------------------------------------
-
-public String getJSONEvents(String country) {
-		
+	@Override
+public JSONObject getJSONEvents(String country) {
+	JSONObject event=null;
 		String data = "";
 		String line = "";
 		
@@ -73,21 +74,19 @@ public String getJSONEvents(String country) {
 		} finally {
 			in.close();
 		}
-		
-		/*JSONObject event;
 		event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
-		System.out.print(event);*/
 
 	} catch (IOException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	return data;
+	return event;
 	}
 // --------------------------------
 
-	public String getTypeEvent() {
+	public JSONObject getTypeEvent() {
+		JSONObject event=null;
 		String data = "";
 		String line = "";
 		
@@ -107,7 +106,7 @@ public String getJSONEvents(String country) {
 			in.close();
 		}
 		
-		//event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+		event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
 		//(JSONArray) JSONValue.parseWithException(data);	//parse JSON Array
 		
 	} catch (IOException e) {
@@ -115,7 +114,15 @@ public String getJSONEvents(String country) {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	
-	return data;
-	}
+
+	return event;
+
 }
+}
+	
+/*	public  String toJSONOString (JSONObject obj) {
+		//Event e=new Event(null,null,0, null,0);
+		JSONObject event=getJSONEventsPL();
+		String e= (String) JSONValue.toJSONString(event);	 //parse JSON Objec
+		
+		}*/

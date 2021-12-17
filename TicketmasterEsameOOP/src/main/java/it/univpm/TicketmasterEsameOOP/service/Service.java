@@ -7,7 +7,9 @@ import it.univpm.TicketmasterEsameOOP.model.Event;
 
 public interface Service {
 
-	abstract String getTypeEvent(String type);
-	abstract String getJSONEventsPL();
+	abstract JSONObject getTypeEvent(String type);
+	abstract JSONObject getJSONEventsPL();
+	abstract String getJSONEvents(String country);
 	//abstract Event getEvent(JSONObject event);
+	//abstract String toJSONOString (JSONObject obj);
 }
