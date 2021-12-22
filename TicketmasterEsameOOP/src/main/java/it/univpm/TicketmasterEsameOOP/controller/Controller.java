@@ -1,6 +1,7 @@
 package it.univpm.TicketmasterEsameOOP.controller;
 
 import java.util.Vector;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.DefaultValue;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.service.*;
+import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
+import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl.*;
 import it.univpm.TicketmasterEsameOOP.model.*;
 
 @RestController
@@ -20,6 +23,7 @@ public class Controller {
 	
 	//@Autowired
 	private ServiceImpl s=new ServiceImpl();
+	private StatisticsImpl st= new StatisticsImpl();
 
 	@GetMapping(value="/countryCode")
 	public Vector<Event> getJSONEventsPL(){
@@ -41,7 +45,8 @@ public class Controller {
 		return s.getTypeEvent();
 	}*/
 	
-	/*@GetMapping(value="/statistics")
+	@GetMapping(value="/statistics")
 	public JSONObject getstat(){
-	}*/
+		return st.NTOTEvent();
+	}
 }

@@ -4,17 +4,16 @@ public class Country {
 
 	private String statesName;
 
-	public Country(String statename) {
-		super();
-		this.statesName = statename;
+	public Country() {
+		this.statesName = statesName;
 	}
 
 	 public String getStatename() {
 		return statesName;
 	}
 
-	 public void setStatename(String statename) {
-		this.statesName = statename;
+	 public void setStatename(String statesName) {
+		this.statesName = statesName;
 	}
 
 
