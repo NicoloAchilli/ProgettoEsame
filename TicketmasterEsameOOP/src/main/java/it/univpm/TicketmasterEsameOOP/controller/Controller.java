@@ -1,5 +1,6 @@
 package it.univpm.TicketmasterEsameOOP.controller;
 
+import java.util.Vector;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.DefaultValue;
@@ -21,7 +22,7 @@ public class Controller {
 	private ServiceImpl s=new ServiceImpl();
 
 	@GetMapping(value="/countryCode")
-	public JSONObject getJSONEventsPL(){
+	public Vector<Event> getJSONEventsPL(){
 		return s.getJSONEventsPL();
 	}
 	
@@ -30,8 +31,17 @@ public class Controller {
 		return s.getJSONEvents(countryCode);
 	}
 	
-	@GetMapping(value="/classifications")
+	/*@GetMapping(value="/{countryCode}")
+	public JSONObject getJSONEventsM(@RequestParam(name="countryCode",defaultValue = "PL") String countryCode){
+		return s.getJSONEvents(countryCode);
+	}*/
+	
+	/*@GetMapping(value="/classifications")
 	public JSONObject getTypeEvent(){
 		return s.getTypeEvent();
-	}
+	}*/
+	
+	/*@GetMapping(value="/statistics")
+	public JSONObject getstat(){
+	}*/
 }
