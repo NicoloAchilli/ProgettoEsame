@@ -32,7 +32,7 @@ public class Controller {
 
 	@GetMapping(value="/countryCode")
 	public JSONObject getJSONEventsPL(){
-		return s.getJSONEventsPL();
+		return new JSONObject(s.toJson(s.getEvent(s.getJSONEventsPL())));
 	}
 	
 	@GetMapping(value="/{countryCode}")
@@ -41,11 +41,13 @@ public class Controller {
 	}
 	
 	@GetMapping(value="/classifications")
-	public JSONObject getTypeEvent(String type){
-		return s.getTypeEvent(type);
+	public JSONObject getTypeEvent(){
+		return s.getTypeEvent();
 	}
-
-
+	
+	
+	
+	
 	/*@RequestMapping(value="/events")
 	public ResponseEntity<Object> getJSONEvent(@RequestParam(name = "countryCode", defaultValue = "PL")String country){
 		return new ResponseEntity<>(service.toJSON(service.getEvent(service.getJSONEvents("PL"))), HttpStatus.OK);

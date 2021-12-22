@@ -1,20 +1,44 @@
 package it.univpm.TicketmasterEsameOOP.model;
 
+import java.util.Vector;
+
 public class Country {
 
-	private String country;
+	private String countryCode;
+	private String countryName;
 
-	public Country(String country) {
-		this.country = country;
+	private Vector<Event> event; 
+	
+	public Vector<Event> getEvent() {
+		return event;
 	}
 
-	public String getCountry() {
-		return country;
+	public void setEvent(Vector<Event> event) {
+		this.event = event;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public String getCountryCode() {
+		return countryCode;
 	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+
+	
+	
+	
+	
+	
+	
 
 	
 

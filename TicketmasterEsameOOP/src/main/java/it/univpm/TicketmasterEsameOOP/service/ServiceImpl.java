@@ -8,19 +8,25 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
+import java.util.Vector;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
 
 import it.univpm.TicketmasterEsameOOP.model.Country;
-import it.univpm.TicketmasterEsameOOP.model.Event;
+import it.univpm.TicketmasterEsameOOP.model.Event; 
+
+//import com.google.gson.Gson;
 
 public class ServiceImpl implements Service{
 
 	
-	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?&countryCode=";
+	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
 	@Override
@@ -31,7 +37,7 @@ public class ServiceImpl implements Service{
 		
 	try {
 
-		URLConnection openConnection = new URL(url + "PL" + "&apikey=" + apiKey).openConnection();
+		URLConnection openConnection = new URL(url + "countryCode=PL" + "&apikey=" + apiKey).openConnection();
 		InputStream in = openConnection.getInputStream();
 
 		try {
@@ -64,7 +70,7 @@ public JSONObject getJSONEvents(String country) {
 		
 	try {
 
-		URLConnection openConnection = new URL(url + country + "&apikey=" + apiKey).openConnection();
+		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apiKey).openConnection();
 		InputStream in = openConnection.getInputStream();
 
 		try {
@@ -88,14 +94,14 @@ public JSONObject getJSONEvents(String country) {
 	}
 
 
-	public JSONObject getTypeEvent(String type) {
+	public JSONObject getTypeEvent() {
 		JSONObject event=null;
 		String data = "";
 		String line = "";
 		
 	try {
 
-		URLConnection openConnection = new URL("https://app.ticketmaster.com/discovery/v2/classifications.json?" + "&countryCode=PL"  +"&apikey=" + apiKey).openConnection();
+		URLConnection openConnection = new URL(url + "classificationName=music" + "&countryCode=PL"  +"&apikey=" + apiKey).openConnection();
 		InputStream in = openConnection.getInputStream();
 
 		try {
@@ -122,6 +128,58 @@ public JSONObject getJSONEvents(String country) {
 	return event;
 	}
 
+	@Override
+	public JSONObject toJson(Country country) {
+		JSONObject output = new JSONObject();
+		 output.put("name", country.getCountryName());	
+		 output.put("countryCode", country.getCountryCode());
+		
+		JSONArray eventList = new JSONArray();
+		
+		for(Event singleEvent : country.getEvent()) {
+			JSONObject obj = new JSONObject();
+			
+			obj.put("name", singleEvent.getName());
+			obj.put("id", singleEvent.getId());
+			obj.put("genre", singleEvent.getGenre());
+			obj.put("date", singleEvent.getDate());
+			
+			eventList.add(obj);
+		}
+		
+		return output;
+		
+	}
+
+	@Override
+	public Country getEvent(JSONObject obj) {
+		
+		Country country = new Country();
+		Vector<Event> eventData = new Vector<Event>();
+		
+		JSONObject countryData = (JSONObject)obj.get("country");
+		JSONArray events = (JSONArray)obj.get("events");
+		
+		country.setCountryName((String)countryData.get("name"));
+		country.setCountryCode((String)countryData.get("countryCode"));
+		
+		for(int i=0; i<events.size() ; i++) {
+			JSONObject listElement = (JSONObject)events.get(i);
+			Event singleEvent = new Event();
+			
+			singleEvent.setName((String)listElement.get("name"));
+			singleEvent.setId((String)listElement.get("id"));
+			singleEvent.setGenre((String)listElement.get("genre"));
+			singleEvent.setDate((long)listElement.get("localDate"));
+			
+			eventData.add(singleEvent);
+		}
+		
+		country.setEvent(eventData);
+		return country;
+	}
+	
+	
 	
 }
 	
