@@ -38,7 +38,7 @@ public class Controller {
 
 	@GetMapping(value="/countryCode")
 	public JSONObject getJSONEventsPL() throws ParseException{
-		return new JSONObject(s.parse(s.getJSONEventsPL()));
+		return new JSONObject(s.toJson(s.parse(s.getJSONEventsPL())));
 
 	}
 	

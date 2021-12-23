@@ -4,9 +4,17 @@ public class Event extends Country {
 
 	private String id;
 	private String name;
-	//private String genre;
+	private String genreName;
 	private String date;
 
+	
+	public String getGenreName() {
+		return genreName;
+	}
+
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
+	}
 
 	public String getId() {
 		return id;

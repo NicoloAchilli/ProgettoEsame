@@ -6,9 +6,18 @@ public class Country {
 
 	private String countryCode;
 	private String countryName;
-
-	private Vector<Event> event; 
+	private Vector<Event> event;
+	private Vector<Genre> genre;
 	
+	
+	public Vector<Genre> getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Vector<Genre> genre) {
+		this.genre = genre;
+	}
+
 	public Vector<Event> getEvent() {
 		return event;
 	}
