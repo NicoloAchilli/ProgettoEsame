@@ -10,10 +10,17 @@ import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
 public interface Service {
+
 	
 	abstract JSONObject getJSONEventsPL();
-	abstract void parse() throws org.json.simple.parser.ParseException;
-	abstract JSONObject getJSONEvents(String country);
-	//abstract Event getEvent(JSONObject event);
-	//abstract public JSONObject getstat();
+	abstract JSONObject parse() throws org.json.simple.parser.ParseException;
+	abstract JSONObject toJson(Country country);
+		
+	
+	//abstract JSONObject getTypeEvent();	
+	//abstract JSONObject getJSONEventsPL();
+	//abstract JSONObject getJSONEvents(String country);
+	//abstract Country getEvent(JSONObject obj);
+	//abstract String toJSONOString (JSONObject obj);
+
 }
