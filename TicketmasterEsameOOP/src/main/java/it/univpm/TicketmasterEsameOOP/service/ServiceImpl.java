@@ -1,38 +1,24 @@
 package it.univpm.TicketmasterEsameOOP.service;
 
 import java.io.BufferedReader;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
-
-import java.util.ArrayList;
 import java.util.Vector;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.*;
-import java.util.Vector;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
-
-import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import it.univpm.TicketmasterEsameOOP.model.Genre;
 import it.univpm.TicketmasterEsameOOP.model.Genre.*;
-
-
 import it.univpm.TicketmasterEsameOOP.model.Country;
-import it.univpm.TicketmasterEsameOOP.model.Event; 
+import it.univpm.TicketmasterEsameOOP.model.Event;
 
-//import com.google.gson.Gson;
 
 public class ServiceImpl implements Service{
 	
@@ -72,23 +58,23 @@ public class ServiceImpl implements Service{
 		return event;
 	}
 
-	//---------------------------------
+
 	@SuppressWarnings("unchecked")
 	public  JSONObject parse(JSONObject obj1){
 
-		ArrayList<Event> ae=new ArrayList<Event>();
+		Vector<Event> ae=new Vector<Event>();
 		Event e=new Event();
 		Genre g=new Genre();
 		Country c=new Country();
 
-		JSONObject objT=new JSONObject();
 		
 		JSONObject obj = (JSONObject)obj1;
 		JSONObject event= (JSONObject) obj.get("_embedded");
 		JSONArray arrayEvent = (JSONArray) event.get("events");	
 		
+		for(Event singleEvent : c.getEvent()) {
 
-		for(int i=0; i<arrayEvent.size(); i++) {
+		//for(int i=0; i<arrayEvent.size(); i++) {
 			JSONObject Event = (JSONObject) arrayEvent.get(i);
 			String id = (String) Event.get("id");
 			e.setId(id);
@@ -98,7 +84,8 @@ public class ServiceImpl implements Service{
 			JSONObject Date1=(JSONObject) Date.get("start");
 			String dates= (String) Date1.get("localDate");
 			e.setDate(dates);
-			
+			ae.add(e);
+
 			JSONObject Event1= (JSONObject) Event.get("_embedded");
 			JSONArray arrayEvent2 = (JSONArray) Event1.get("venues");
 			for(int j=0; j<arrayEvent2.size(); j++) {
@@ -108,23 +95,41 @@ public class ServiceImpl implements Service{
 				c.setCountryName(namec);
 				String codec=(String) Country.get("countryCode");
 				c.setCountryCode(codec);
-				
+				c.setEvent(ae);
+
+				JSONArray type = (JSONArray) Event.get("classifications");		
+				for(int l=0; l<type.size(); l++) {
+					JSONObject Event3 = (JSONObject) type.get(l);
+					JSONObject Event4 = (JSONObject)Event3.get("segment");
+					String idg= (String) Event4.get("id");
+					g.setIdg(idg);
+					String nameg = (String) Event4.get("name");	
+					g.setNameg(nameg);
+
+				}
 			}
-			//ae.add(e);
-			
-			/*JSONArray type = (JSONArray) Event.get("classifications");		
-			for(int j=0; j<type.size(); j++) {
-				JSONObject Event1 = (JSONObject) Event.get("segment");
-				long idg = (long) Event1.get("id");
-				g.set
-				String nameg = (String) Event1.get("name");*/		
-	}
-		
+		}
+
+		JSONObject objT=new JSONObject();
 		objT.put("name",e.getName());
 		objT.put("id",e.getId());
 		objT.put("dates",e.getDate());
-		objT.put("nameCountry", c.getCountryName());
+		objT.put("Countryname",c.getCountryName());
+		objT.put("Countrycode",c.getCountryCode());
+		objT.put("Genrename",g.getNameg());
+		objT.put("GenreId",g.getIdg());
+
+		/*objT.put("nameCountry", c.getCountryName());
 		objT.put("countryCode", c.getCountryCode());
+		objT.put("events", 0);
+		JSONArray objT1=(JSONArray) objT.get("events");
+		for(int h=0; h<objT1.size(); h++) {
+			JSONObject objT2 = (JSONObject) objT1.get(h);
+			objT2.put("name",e.getName());
+			objT2.put("id",e.getId());
+			objT2.put("dates",e.getDate());
+		}*/
+
 		return objT;
 	}
 }

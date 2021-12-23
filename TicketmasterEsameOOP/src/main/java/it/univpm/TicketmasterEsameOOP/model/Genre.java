@@ -1,19 +1,19 @@
 package it.univpm.TicketmasterEsameOOP.model;
 
 public class Genre extends Event{
-	private long idg;
+	private String idg;
 	private String nameg;
 	
-	long getIdg() {
+	public String getIdg() {
 		return idg;
 	}
-	void setIdg(long idg) {
+	public void setIdg(String idg) {
 		this.idg = idg;
 	}
-	String getNameg() {
+	public String getNameg() {
 		return nameg;
 	}
-	void setNameg(String nameg) {
+	public void setNameg(String nameg) {
 		this.nameg = nameg;
 	}
 	
