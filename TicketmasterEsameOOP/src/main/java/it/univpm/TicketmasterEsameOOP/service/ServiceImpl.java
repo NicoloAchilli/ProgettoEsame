@@ -131,20 +131,20 @@ public JSONObject getJSONEvents(String country) {
 	@Override
 	public JSONObject toJson(Country country) {
 		JSONObject output = new JSONObject();
-		 output.put("name", country.getCountryName());	
-		 output.put("countryCode", country.getCountryCode());
+		// output.put("name", country.getCountryName());	
+		// output.put("countryCode", country.getCountryCode());
 		
 		JSONArray eventList = new JSONArray();
 		
 		for(Event singleEvent : country.getEvent()) {
-			JSONObject obj = new JSONObject();
+			//JSONObject obj = new JSONObject();
 			
-			obj.put("name", singleEvent.getName());
-			obj.put("id", singleEvent.getId());
-			obj.put("genre", singleEvent.getGenre());
-			obj.put("date", singleEvent.getDate());
+			output.put("name", singleEvent.getName());
+			output.put("id", singleEvent.getId());
+			output.put("genre", singleEvent.getGenre());
+			output.put("date", singleEvent.getDate());
 			
-			eventList.add(obj);
+			eventList.add(output);
 		}
 		
 		return output;
@@ -157,11 +157,11 @@ public JSONObject getJSONEvents(String country) {
 		Country country = new Country();
 		Vector<Event> eventData = new Vector<Event>();
 		
-		JSONObject countryData = (JSONObject)obj.get("country");
+		//JSONObject countryData = (JSONObject)obj.get("country");
 		JSONArray events = (JSONArray)obj.get("events");
 		
-		country.setCountryName((String)countryData.get("name"));
-		country.setCountryCode((String)countryData.get("countryCode"));
+		//country.setCountryName((String)countryData.get("name"));
+		//country.setCountryCode((String)countryData.get("countryCode"));
 		
 		for(int i=0; i<events.size() ; i++) {
 			JSONObject listElement = (JSONObject)events.get(i);
@@ -169,8 +169,8 @@ public JSONObject getJSONEvents(String country) {
 			
 			singleEvent.setName((String)listElement.get("name"));
 			singleEvent.setId((String)listElement.get("id"));
-			singleEvent.setGenre((String)listElement.get("genre"));
-			singleEvent.setDate((long)listElement.get("localDate"));
+			//singleEvent.setGenre((String)listElement.get("genre"));
+			//singleEvent.setDate((long)listElement.get("localDate"));
 			
 			eventData.add(singleEvent);
 		}
