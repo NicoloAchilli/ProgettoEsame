@@ -2,17 +2,17 @@ package it.univpm.TicketmasterEsameOOP.model;
 
 public class Event extends Country {
 
-	private long id;
+	private String id;
 	private String name;
 	//private String genre;
-	private long date;
+	private String date;
 
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -24,11 +24,11 @@ public class Event extends Country {
 		this.name = name;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -36,5 +36,4 @@ public class Event extends Country {
 	public String toString() {
 		return "Event [name=" + name + ", id=" + id +  ", date=" + date + "]";
 	}
-
 }

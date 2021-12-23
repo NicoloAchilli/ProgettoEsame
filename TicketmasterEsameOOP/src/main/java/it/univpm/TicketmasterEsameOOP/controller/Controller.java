@@ -3,6 +3,7 @@ package it.univpm.TicketmasterEsameOOP.controller;
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.HttpStatus;
@@ -36,12 +37,12 @@ public class Controller {
 	private StatisticsImpl st= new StatisticsImpl();
 
 	@GetMapping(value="/countryCode")
-	public JSONObject getJSONEventsPL(){
-		return new JSONObject(s.toJson(s.parse(s.getJSONEventsPL())));
+	public JSONObject getJSONEventsPL() throws ParseException{
+		return new JSONObject(s.parse(s.getJSONEventsPL()));
 
 	}
 	
-	@GetMapping(value="/{countryCode}")
+/*	@GetMapping(value="/{countryCode}")
 	public JSONObject getJSONEvents(@PathVariable String countryCode){
 		return s.getJSONEvents(countryCode);
 	}

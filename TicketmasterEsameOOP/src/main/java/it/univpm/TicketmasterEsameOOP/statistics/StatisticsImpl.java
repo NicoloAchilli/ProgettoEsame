@@ -21,7 +21,7 @@ public class StatisticsImpl implements Statistics{
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject NTOTEvent() {
-		s.getJSONEventsPL();
+		//s.getJSONEventsPL();
 		int cont=0;
 		JSONObject obj=new JSONObject();
 		for(int i=0;i<e.size();i++) {
