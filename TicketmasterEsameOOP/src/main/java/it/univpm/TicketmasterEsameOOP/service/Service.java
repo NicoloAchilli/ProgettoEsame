@@ -14,7 +14,7 @@ public interface Service {
 	
 	abstract JSONObject getJSONEventsPL();
 	abstract JSONObject parse() throws org.json.simple.parser.ParseException;
-	//abstract JSONObject toJson(Country country);
+	abstract JSONObject toJson(Country country);
 		
 	
 	//abstract JSONObject getTypeEvent();	

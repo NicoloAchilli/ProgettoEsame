@@ -1,38 +1,24 @@
 package it.univpm.TicketmasterEsameOOP.service;
 
 import java.io.BufferedReader;
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
-
-import java.util.ArrayList;
 import java.util.Vector;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.*;
-import java.util.Vector;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
-
-import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import it.univpm.TicketmasterEsameOOP.model.Genre;
 import it.univpm.TicketmasterEsameOOP.model.Genre.*;
-
-
 import it.univpm.TicketmasterEsameOOP.model.Country;
-import it.univpm.TicketmasterEsameOOP.model.Event; 
+import it.univpm.TicketmasterEsameOOP.model.Event;
 
-//import com.google.gson.Gson;
 
 public class ServiceImpl implements Service{
 	
@@ -72,21 +58,20 @@ public class ServiceImpl implements Service{
 		return event;
 	}
 
-	//---------------------------------
-	@SuppressWarnings("unchecked")
-	public  JSONObject parse(JSONObject obj1){
 
-		ArrayList<Event> ae=new ArrayList<Event>();
+	@SuppressWarnings("unchecked")
+	public  Country parse(JSONObject obj1){
+
+		Vector<Event> ae=new Vector<Event>();
+		Vector<Genre> gn=new Vector<Genre>();
 		Event e=new Event();
 		Genre g=new Genre();
 		Country c=new Country();
 
-		JSONObject objT=new JSONObject();
 		
 		JSONObject obj = (JSONObject)obj1;
 		JSONObject event= (JSONObject) obj.get("_embedded");
 		JSONArray arrayEvent = (JSONArray) event.get("events");	
-		
 
 		for(int i=0; i<arrayEvent.size(); i++) {
 			JSONObject Event = (JSONObject) arrayEvent.get(i);
@@ -98,7 +83,7 @@ public class ServiceImpl implements Service{
 			JSONObject Date1=(JSONObject) Date.get("start");
 			String dates= (String) Date1.get("localDate");
 			e.setDate(dates);
-			
+
 			JSONObject Event1= (JSONObject) Event.get("_embedded");
 			JSONArray arrayEvent2 = (JSONArray) Event1.get("venues");
 			for(int j=0; j<arrayEvent2.size(); j++) {
@@ -108,48 +93,44 @@ public class ServiceImpl implements Service{
 				c.setCountryName(namec);
 				String codec=(String) Country.get("countryCode");
 				c.setCountryCode(codec);
-				
+							
+				JSONArray type = (JSONArray) Event.get("classifications");		
+				for(int l=0; l<type.size(); l++) {
+					JSONObject Event3 = (JSONObject) type.get(l);
+					JSONObject Event4 = (JSONObject)Event3.get("segment");
+					String nameg = (String) Event4.get("name");	
+					e.setGenreName(nameg);
+					ae.add(e);
+					c.setEvent(ae);
+				}
 			}
-			//ae.add(e);
-			
-			/*JSONArray type = (JSONArray) Event.get("classifications");		
-			for(int j=0; j<type.size(); j++) {
-				JSONObject Event1 = (JSONObject) Event.get("segment");
-				long idg = (long) Event1.get("id");
-				g.set
-				String nameg = (String) Event1.get("name");*/		
+		}
+
+		return c;
 	}
-		
-		objT.put("name",e.getName());
-		objT.put("id",e.getId());
-		objT.put("dates",e.getDate());
-		objT.put("nameCountry", c.getCountryName());
-		objT.put("countryCode", c.getCountryCode());
-		return objT;
-	}
-}
-	/*
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject toJson(Country country) {
 		JSONObject output = new JSONObject();
-		 output.put("name", country.getCountryName());	
+		 output.put("coutryName", country.getCountryName());	
 		 output.put("countryCode", country.getCountryCode());
 		
 		JSONArray eventList = new JSONArray();
-		
+		JSONArray GenreList = new JSONArray();
+
 		for(Event singleEvent : country.getEvent()) {
 			JSONObject obj = new JSONObject();
 			
 			obj.put("name", singleEvent.getName());
 			obj.put("id", singleEvent.getId());
-			//obj.put("genre", singleEvent.getGenre());
 			obj.put("date", singleEvent.getDate());
-			
-			eventList.add(obj);
+			obj.put("genre", singleEvent.getGenreName());
+			eventList.add(obj);	
 		}
-		
+		output.put("events", eventList);
+
 		return output;
-		
 	}
 }
 /*
