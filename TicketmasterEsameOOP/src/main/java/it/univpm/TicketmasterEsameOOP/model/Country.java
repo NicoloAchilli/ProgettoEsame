@@ -16,7 +16,7 @@ public class Country {
 	public void setEvent(Vector<Event> event) {
 		this.event = event;
 	}
-
+	
 	public String getCountryCode() {
 		return countryCode;
 	}
@@ -33,15 +33,5 @@ public class Country {
 		this.countryName = countryName;
 	}
 
-	
-	
-	
-	
-	
-	
-
-	
-
-	
 	
 }
