@@ -13,13 +13,13 @@ public interface Service {
 
 	
 	abstract JSONObject getJSONEventsPL();
-	abstract JSONObject parse() throws org.json.simple.parser.ParseException;
+	abstract Country parse(JSONObject obj1) throws org.json.simple.parser.ParseException;
 	abstract JSONObject toJson(Country country);
 		
 	
 	//abstract JSONObject getTypeEvent();	
 	//abstract JSONObject getJSONEventsPL();
-	//abstract JSONObject getJSONEvents(String country);
+	abstract JSONObject getJSONEvents(String country);
 	//abstract Country getEvent(JSONObject obj);
 	//abstract String toJSONOString (JSONObject obj);
 

@@ -59,15 +59,13 @@ public class ServiceImpl implements Service{
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public  Country parse(JSONObject obj1){
 
 		Vector<Event> ae=new Vector<Event>();
-		Vector<Genre> gn=new Vector<Genre>();
+		//Vector<Genre> gn=new Vector<Genre>();
 		Event e=new Event();
-		Genre g=new Genre();
+		//Genre g=new Genre();
 		Country c=new Country();
-
 		
 		JSONObject obj = (JSONObject)obj1;
 		JSONObject event= (JSONObject) obj.get("_embedded");
@@ -84,28 +82,26 @@ public class ServiceImpl implements Service{
 			String dates= (String) Date1.get("localDate");
 			e.setDate(dates);
 
-			JSONObject Event1= (JSONObject) Event.get("_embedded");
-			JSONArray arrayEvent2 = (JSONArray) Event1.get("venues");
-			for(int j=0; j<arrayEvent2.size(); j++) {
-				JSONObject Event2 = (JSONObject) arrayEvent2.get(j);
-				JSONObject Country = (JSONObject) Event2.get("country");
-				String namec=(String) Country.get("name");
-				c.setCountryName(namec);
-				String codec=(String) Country.get("countryCode");
-				c.setCountryCode(codec);
-							
-				JSONArray type = (JSONArray) Event.get("classifications");		
-				for(int l=0; l<type.size(); l++) {
-					JSONObject Event3 = (JSONObject) type.get(l);
-					JSONObject Event4 = (JSONObject)Event3.get("segment");
-					String nameg = (String) Event4.get("name");	
-					e.setGenreName(nameg);
-					ae.add(e);
-					c.setEvent(ae);
-				}
+			JSONArray type = (JSONArray) Event.get("classifications");		
+			for(int l=0; l<type.size(); l++) {
+				JSONObject Event3 = (JSONObject) type.get(l);
+				JSONObject Event4 = (JSONObject)Event3.get("segment");
+				String nameg = (String) Event4.get("name");	
+				e.setGenreName(nameg);
+			}
+				JSONObject Event1= (JSONObject) Event.get("_embedded");
+				JSONArray arrayEvent2 = (JSONArray) Event1.get("venues");
+				for(int j=0; j<arrayEvent2.size(); j++) {
+					JSONObject Event2 = (JSONObject) arrayEvent2.get(j);
+					JSONObject Country = (JSONObject) Event2.get("country");
+					String namec=(String) Country.get("name");
+					c.setCountryName(namec);
+					String codec=(String) Country.get("countryCode");
+					c.setCountryCode(codec);
 			}
 		}
-
+		ae.add(e);
+		c.setEvent(ae);
 		return c;
 	}
 	
@@ -117,7 +113,6 @@ public class ServiceImpl implements Service{
 		 output.put("countryCode", country.getCountryCode());
 		
 		JSONArray eventList = new JSONArray();
-		JSONArray GenreList = new JSONArray();
 
 		for(Event singleEvent : country.getEvent()) {
 			JSONObject obj = new JSONObject();
@@ -132,16 +127,16 @@ public class ServiceImpl implements Service{
 
 		return output;
 	}
-}
-/*
-	//  ------------------------------------------------------------
-	@Override
 
-	public JSONObject getJSONEvents(String country) {
-		JSONObject event=null;
-		String data = "";
-		String line = "";
-		
+
+	//  ------------------------------------------------------------
+@Override
+
+public JSONObject getJSONEvents(String country) {
+	JSONObject event=null;
+	String data = "";
+	String line = "";
+
 	try {
 
 		URLConnection openConnection = new URL(url + "countryCode=" + country + "&apikey=" + apiKey).openConnection();
@@ -159,14 +154,17 @@ public class ServiceImpl implements Service{
 		}
 		event= (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
 
-	} catch (IOException e) {
+	}
+
+	catch (IOException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 	return event;
-	}
-
+}
+}
+/*
 	public JSONObject getTypeEvent() {
 		JSONObject event=null;
 		String data = "";

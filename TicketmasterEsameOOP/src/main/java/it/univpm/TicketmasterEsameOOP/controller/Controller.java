@@ -34,18 +34,19 @@ public class Controller {
 	
 	//@Autowired
 	private ServiceImpl s=new ServiceImpl();
-	private StatisticsImpl st= new StatisticsImpl();
+	//private StatisticsImpl st= new StatisticsImpl();
 
-	@GetMapping(value="/countryCode")
-	public JSONObject getJSONEventsPL() throws ParseException{
-		return new JSONObject(s.toJson(s.parse(s.getJSONEventsPL())));
-
+	@GetMapping(value="/")
+	public JSONObject getEvents() throws ParseException{
+		return new JSONObject(s.toJson(s.parse(s.getJSONEvents("PL"))));
 	}
 	
-/*	@GetMapping(value="/{countryCode}")
-	public JSONObject getJSONEvents(@PathVariable String countryCode){
-		return s.getJSONEvents(countryCode);
+	@GetMapping(value="/{countryCode}")
+	public JSONObject getEvents(@PathVariable String countryCode){
+		return new JSONObject(s.toJson(s.parse(s.getJSONEvents(countryCode))));
 	}
+	
+	
 	
 	/*@GetMapping(value="/{countryCode}")
 	public JSONObject getJSONEventsM(@RequestParam(name="countryCode",defaultValue = "PL") String countryCode){
