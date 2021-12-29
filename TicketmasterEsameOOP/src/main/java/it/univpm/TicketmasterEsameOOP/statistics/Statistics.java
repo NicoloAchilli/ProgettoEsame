@@ -1,6 +1,7 @@
 package it.univpm.TicketmasterEsameOOP.statistics;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import org.json.simple.JSONObject;
 
@@ -12,6 +13,8 @@ public interface Statistics {
 	ArrayList<Genre> g=new ArrayList<Genre>();
 	
 	abstract JSONObject NTOTEvent();
+	abstract Vector<Event> NGenreEvent(String genre);
+	
 	//abstract void NGenreEvent();
 	//abstract ArrayList<Genre> NMaxGenre();
 }

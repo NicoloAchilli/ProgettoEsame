@@ -6,8 +6,14 @@ public class Event extends Country {
 	private String name;
 	private String genreName;
 	private String date;
-
 	
+	public Event(String id, String name, String genreName, String date) {
+		this.id = id;
+		this.name = name;
+		this.genreName = genreName;
+		this.date = date;
+	}
+
 	public String getGenreName() {
 		return genreName;
 	}

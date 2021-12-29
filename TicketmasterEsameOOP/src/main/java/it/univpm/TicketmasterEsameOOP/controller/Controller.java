@@ -1,40 +1,18 @@
 package it.univpm.TicketmasterEsameOOP.controller;
 
-import java.util.Vector;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RestController;
-
-import it.univpm.TicketmasterEsameOOP.model.Country;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.service.*;
-import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
-import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl.*;
-import it.univpm.TicketmasterEsameOOP.model.*;
+
 
 @RestController
 public class Controller {
 	
 	//@Autowired
 	private ServiceImpl s=new ServiceImpl();
-	private StatisticsImpl st= new StatisticsImpl();
+
 
 	@GetMapping(value="/countryCode")
 	public JSONObject getJSONEventsPL() throws ParseException{
@@ -42,7 +20,7 @@ public class Controller {
 
 	}
 	
-/*	@GetMapping(value="/{countryCode}")
+	/*@GetMapping(value="/{countryCode}")
 	public JSONObject getJSONEvents(@PathVariable String countryCode){
 		return s.getJSONEvents(countryCode);
 	}
@@ -57,7 +35,7 @@ public class Controller {
 		return s.getTypeEvent();
 	}*/
 	
-	@GetMapping(value="/statistics")
+	/*@GetMapping(value="/statistics")
 	public JSONObject getstat(){
 		return st.NTOTEvent();
 	}

@@ -1,62 +1,51 @@
 package it.univpm.TicketmasterEsameOOP.statistics;
 
 import static org.hamcrest.CoreMatchers.anything;
-import java.util.ArrayList;
-
 import org.json.simple.JSONObject;
-
-import jdk.jfr.Event;
 import it.univpm.TicketmasterEsameOOP.model.Genre;
 import it.univpm.TicketmasterEsameOOP.service.ServiceImpl;
 import it.univpm.TicketmasterEsameOOP.service.ServiceImpl.*;
 import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Country.*;
-
+import it.univpm.TicketmasterEsameOOP.model.Event;
+import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import java.util.*;
 import java.text.*;
+import java.time.LocalDate;
 
 public class StatisticsImpl implements Statistics{
 	Country c=new Country();
 	ServiceImpl s=new ServiceImpl();
 	
+	
 	@SuppressWarnings("unchecked")
 	public JSONObject NTOTEvent() {
-		//s.getJSONEventsPL();
-		int cont=0;
-		JSONObject obj=new JSONObject();
-		for(int i=0;i<e.size();i++) {
-			if(e.get(i) != null)
+		int dimension=(c.getEvent().size())-1;
+		/*int cont=0;
+		for(int i=0;i<c.getEvent().size();i++) {
+			if(c.getEvent().get(i) != null)
 				cont++;
-		}
-		obj.put("Numero totale di eventi", cont);
+		}*/
+		JSONObject obj=new JSONObject();
+		obj.put("Numero totale di eventi in " + c.getCountryName() + " è ", dimension);
 		return obj;
 	}
 	
-	public void NGenreEvent() {
-		int cc=0;
-		int cf=0;
-		for(int i=0;i<g.size();i++) {
-			if(g.get(i).getGname() == "Comedy") cc++;
-			if(g.get(i).getGname() == "Family") cf++;
+	public Vector<Event> NGenreEvent(String genre) {
+		Vector<Event> vg=new Vector<Event>();
+
+		for (int i=0;i<vg.size();i++) {
+			if(c.getEvent().get(i).getGenreName().equals(genre)) vg.add(c.getEvent().get(i));
+			else System.out.print("Non è presente nessun evento di tipo " + genre);
 		}
-		System.out.println("Numero di eventi di tipo Comedy in " + c.getStatename() + " è "+ cc);
-		System.out.println("Numero di eventi di tipo Family in " + c.getStatename() + " è "+ cf);
-	}
-		
-	/*public class DateDemo {
-      Date dNow = new Date( );
-      SimpleDateFormat ft = new SimpleDateFormat (" %tB ");
-      //System.out.println("Current Date: " + ft.format(dNow));
-   }
-	
-	public ArrayList<Genre> NMaxGenre(String genere){
-		for(int i=0;i<g.size();i++) {
-			
+		return vg;
+		/*for(int i=0;i<g.size();i++) {
+			if(g.get(i).getGenreName() == "Comedy") cc++;
+			if(g.get(i).getGenreName() == "Family") cf++;
 		}
+		System.out.println("Numero di eventi di tipo Comedy in " + c.getCountryName() + " è "+ cc);
+		System.out.println("Numero di eventi di tipo Family in " + c.getCountryName() + " è "+ cf);
 	}*/
-	
-	public JSONObject getstatistics() {
-		JSONObject obj=new JSONObject();
-		NTOTEvent();
 	}
+
 }
