@@ -25,7 +25,7 @@ public class ServiceImpl implements Service{
 	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 
-	@Override
+	/*@Override
 	public JSONObject getJSONEventsPL() {
 		JSONObject event=null;
 		String data = "";
@@ -56,7 +56,7 @@ public class ServiceImpl implements Service{
 		}
 
 		return event;
-	}
+	}*/
 
 
 	public  Country parse(JSONObject obj1){

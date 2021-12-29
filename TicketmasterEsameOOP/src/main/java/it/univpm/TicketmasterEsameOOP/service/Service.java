@@ -12,7 +12,7 @@ import it.univpm.TicketmasterEsameOOP.model.Event;
 public interface Service {
 
 	
-	abstract JSONObject getJSONEventsPL();
+	//abstract JSONObject getJSONEventsPL();
 	abstract Country parse(JSONObject obj1) throws org.json.simple.parser.ParseException;
 	abstract JSONObject toJson(Country country);
 		

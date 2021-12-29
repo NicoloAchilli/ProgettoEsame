@@ -46,7 +46,25 @@ public class Controller {
 		return new JSONObject(s.toJson(s.parse(s.getJSONEvents(countryCode))));
 	}
 	
+	@GetMapping(value="/totEvent")
+	public int getTotEvent() {
+		return 0;
+	}
 	
+	@GetMapping(value="/totEventForRegion")
+	public int getTotEventForRegion() {
+		return 0;
+	}
+	
+	@GetMapping(value="/totEventForGenre")
+	public int getTotEventForGenre() {
+		return 0;
+	}
+	
+	@GetMapping(value="/totEventForMonth")
+	public int getTotEventForMonth() {
+		return 0;
+	}
 	
 	/*@GetMapping(value="/{countryCode}")
 	public JSONObject getJSONEventsM(@RequestParam(name="countryCode",defaultValue = "PL") String countryCode){
