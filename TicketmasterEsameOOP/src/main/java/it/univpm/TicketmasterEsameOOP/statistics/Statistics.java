@@ -11,10 +11,14 @@ public interface Statistics {
 	
 	ArrayList<Event> e=new ArrayList<Event>();
 	ArrayList<Genre> g=new ArrayList<Genre>();
+
 	
-	abstract JSONObject NTOTEvent();
-	abstract Vector<Event> NGenreEvent(String genre);
+	abstract int NumberTotEvent();
+	abstract JSONObject GenreStatistics(String genre);
 	
-	//abstract void NGenreEvent();
-	//abstract ArrayList<Genre> NMaxGenre();
+	
+	//abstract Vector<Event> MounthStatistics(String genre);	
+	//abstract Vector<Event> NumberMaxMounth();
+	//abstract Vector<Event> NumberMinMounth();
+	//abstract Vector<Event> NumberAverageMounth();
 }

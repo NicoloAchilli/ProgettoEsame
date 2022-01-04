@@ -7,6 +7,7 @@ public class Country {
 	private String countryCode;
 	private String countryName;
 	private Vector<Event> event;
+
 	//private Vector<Genre> genre;
 	
 	

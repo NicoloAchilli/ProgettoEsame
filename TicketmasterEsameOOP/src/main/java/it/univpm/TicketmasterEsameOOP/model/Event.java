@@ -6,13 +6,6 @@ public class Event extends Country {
 	private String name;
 	private String genreName;
 	private String date;
-	
-	public Event(String id, String name, String genreName, String date) {
-		this.id = id;
-		this.name = name;
-		this.genreName = genreName;
-		this.date = date;
-	}
 
 	public String getGenreName() {
 		return genreName;
@@ -44,10 +37,5 @@ public class Event extends Country {
 
 	public void setDate(String date) {
 		this.date = date;
-	}
-
-	@Override
-	public String toString() {
-		return "Event [name=" + name + ", id=" + id +  ", date=" + date + "]";
 	}
 }
