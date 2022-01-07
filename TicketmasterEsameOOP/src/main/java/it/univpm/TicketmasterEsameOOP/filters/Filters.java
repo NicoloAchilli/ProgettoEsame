@@ -11,27 +11,34 @@ public class Filters {
 
 	protected Vector<Filters> filtersCountry= new Vector<Filters>();
 	protected Vector<Filters> filtersGenre= new Vector<Filters>();
-
 	protected String value;
+	
+	public Vector<Filters> getFiltersGenre() {
+		return filtersGenre;
+	}
 
-	public Filters(String value) {
+	public void setFiltersGenre(Vector<Filters> filtersGenre) {
+		this.filtersGenre = filtersGenre;
+	}
+
+
+	public Vector<Filters> getFiltersCountry() {
+		return filtersCountry;
+	}
+
+	public void setFiltersCountry(Vector<Filters> filtersCountry) {
+		this.filtersCountry = filtersCountry;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
 		this.value = value;
 	}
 
-
-	/*public void toFilter(List<Domain> domainsToFilter, List<Domain> filteredDomains) { 		//FILTRAGGIO OR
-
-	for(Domain d: domainsToFilter) {
-	 	 if(d.getCountry().equals(value) && !filteredDomains.contains(d))
-			 try{
-				 filteredDomains.add(d);
-			 }catch(ClassCastException c){
-				 System.out.println("MESSAGGI: " + c.getMessage());
-				 System.out.println("CAUSA: " + c.getCause());
-			 }
-	}
-	 */
-
+	
 	public String[] parseString(String line) {
 		String[] splittedLine= null;
 		try{
@@ -44,21 +51,31 @@ public class Filters {
 	}
 
 	public void parsingFilters(JSONObject bodyFilter){
+		//Vector<Event> vfc=new Vector<Event>();
+		Vector<Event> vf=new Vector<Event>();
+		
 		if(bodyFilter.containsKey("country")) {
 			String line = (String)bodyFilter.get("country");
-			line = line.toUpperCase();
+			//line = line.toUpperCase();
 			for(String s: parseString(line)){
 				if(s.equals("NULL")||s.equals("Null"))
 					s = s.toLowerCase();
-				FiltersCountry f = new FiltersCountry(s);
-				Filters.add(f);
+				Filters f = new FiltersCountry();
+				//f.getFiltersCountry(s);
+				filtersCountry.add(f);
+				
+				
+				/*if(bodyFilter.containsKey("genre")) {
+					FiltersGenre fg=new FiltersGenre();
+					 vf=fg.filterByGenre((String)bodyFilter.get("genre"),f.FilterCountry(s));	
+				}*/
+				if(bodyFilter.containsKey("genre")) {
+					FiltersGenre fg=new FiltersGenre();
+					filtersGenre.add(fg);
 			}
 		}
-
-		if(bodyFilter.containsKey("genre")) {
-			Filters f=new FiltersGenre((String)bodyFilter.get("genre"));
-			Filters.add(f);	
-		}
 	}
+	
+	
 }
 

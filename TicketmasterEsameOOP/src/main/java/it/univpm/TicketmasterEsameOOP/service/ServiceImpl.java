@@ -22,6 +22,9 @@ import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import it.univpm.TicketmasterEsameOOP.model.Genre;
 import it.univpm.TicketmasterEsameOOP.model.Genre.*;
 import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
+import it.univpm.TicketmasterEsameOOP.exception.NoDataException;
+import it.univpm.TicketmasterEsameOOP.filters.Filters;
+import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
 import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
@@ -31,6 +34,8 @@ public class ServiceImpl implements Service{
 	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 
+	private Vector<Event> filteredEvents= new Vector<Event>();
+	
 	@Override
 	public JSONObject getJSONEvents(String country) {
 		JSONObject event=null;
@@ -166,46 +171,80 @@ public class ServiceImpl implements Service{
 		return event;
 	}
 	
-	public JSONObject getFilteredEvents(JSONObject bodyFilter) {
-	}
-		/*try{
-			Filter f0 = new Filter();
+	public Country getFilteredEvents(JSONObject bodyFilter) {
+		
+		Country c=new Country();
+		try{
+			
+			Filters f0 = new Filters();
+			FiltersCountry f1 = new FiltersCountry();
 			f0.parsingFilters(bodyFilter);
 
-			if (!f0.getFiltersName().isEmpty() && !f0.getFiltersCountry().isEmpty()) {
-				for (Filter f : f0.getFiltersName()) {
-					f.toFilter(domainsToFilter1, domainsToFilter2);
+			if (!f0.getFiltersCountry().isEmpty() && !f0.getFiltersGenre().isEmpty()) {
+				for (Filters f : f0.getFiltersCountry()) {
 				}
-				for (Filter f : f0.getFiltersCountry()) {
-					f.toFilter(domainsToFilter2, filteredDomains);
+				for (Filters f : f0.getFiltersGenre()) {
+					f.toFilter(domainsToFilter2);
 				}
 			}
-			if (f0.getFiltersName().isEmpty() && !f0.getFiltersCountry().isEmpty()) {
+			/*if (f0.getFiltersGenre().isEmpty() && !f0.getFiltersCountry().isEmpty()) {
 				for (Filter f : f0.getFiltersCountry()) {
 					System.out.println(f);
-					f.toFilter(domainsToFilter1, filteredDomains);
+					f.toFilter(domainsToFilter1);
 				}
 			}
-			if (!f0.getFiltersName().isEmpty() && f0.getFiltersCountry().isEmpty()) {
-				for (Filter f : f0.getFiltersName()) {
-					f.toFilter(domainsToFilter1, filteredDomains);
+			if (!f0.getFiltersGenre().isEmpty() && f0.getFiltersCountry().isEmpty()) {
+				for (Filter f : f0.getFiltersGenre()) {
+					f.toFilter(domainsToFilter1, ve);
 				}
 			}
-			if (f0.getFiltersName().isEmpty() && f0.getFiltersCountry().isEmpty()) {
+			if (f0.getFiltersGenre().isEmpty() && f0.getFiltersCountry().isEmpty()) {
 				filteredDomains = domainsToFilter1;
 			}
 			for (Filter f : f0.getFilters()) {
-				f.toFilter(filteredDomains);
-			}
+				f.toFilter(ve);
+			}*/
 		}
 		catch(Exception e){
-			System.out.println("ERRORE: GENERICO in getFilteredDomains().");
+			System.out.println("ERRORE: GENERICO in getFilteredEvents().");
 			System.out.println("MESSAGGI: " + e.getMessage());
 			System.out.println("CAUSA: " + e.getCause());
 		}
-		for(Domain d:filteredDomains)
-			System.out.println(d);
-		return filteredDomains;
-	}*/
-
+		for(Event e:filteredEvents)
+			System.out.println(e);
+		return c.getEvent();
+	}
+	
+	public JSONObject getJSONObjectFilteredEvents(Country c) {
+		JSONObject obj=new JSONObject();
+		JSONObject obj1=new JSONObject();
+		
+		obj1.put(, obj1)
+		
+		
+		
+		
+		obj.put("numero totale eventi", obj1);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return obj;
+	}	
+	
 }	

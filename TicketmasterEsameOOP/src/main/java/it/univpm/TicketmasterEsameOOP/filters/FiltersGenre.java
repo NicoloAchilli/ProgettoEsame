@@ -1,36 +1,20 @@
 package it.univpm.TicketmasterEsameOOP.filters;
 
 import java.util.Vector;
-
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
 public class FiltersGenre extends Filters{
 
-	public FiltersGenre(String value) {
-		super(value);
-	}
-
-public static Vector<Event> filterByGenre(String genre, Vector<Event> eventiDaFiltrare) {
+public Vector<Event> filterByGenre(String genre,Vector<Event> eventsFilterdeByCoutry) {
 	
-		Vector<Event> eventiFiltratiGenre = new Vector<Event>();
+		Vector<Event> eventiFileredByGenre = new Vector<Event>();
 		
-		for (Event eventiTemp : eventiDaFiltrare) {	
+		for (Event eventiTemp : eventsFilterdeByCoutry) {	
 			if(genre.equals(eventiTemp.getGenreName()))
-				eventiFiltratiGenre.add(eventiTemp);			
+				eventiFileredByGenre.add(eventiTemp);			
 		}
 		
-		return eventiFiltratiGenre;
+		return eventiFileredByGenre;
 		
 	}
-
-
-/*private static void controlloFiltroGeneri() throws EventiException {
-
-if (eventiFiltratiPerGeneri.isEmpty()) {
-	
-	key = "Attenzione";
-	value = "Non ci sono eventi disponibili";
-	throw new EventiException();
-
-}*/
 }

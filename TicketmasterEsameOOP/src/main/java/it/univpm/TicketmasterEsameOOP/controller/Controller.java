@@ -40,9 +40,9 @@ public class Controller {
 	}*/
 	
 	@PostMapping(value="/filters")
-	public JSONObject getJSONEventsFilters(@RequestBody JSONObject bodyFilter, @RequestParam(name = "CountryCode", defaultValue = "PL") String CountryCode,
+	public JSONObject getFilteredEvents(@RequestBody JSONObject bodyFilter, @RequestParam(name = "CountryCode", defaultValue = "PL") String CountryCode,
 																			   @RequestParam(name = "genre") String genre) throws BodyIsEmptyException{
-		JSONObject obj=new JSONObject();
+
 		if(bodyFilter.isEmpty()) throw new BodyIsEmptyException();
 		return new JSONObject(s.getFilteredEvents(bodyFilter));
 	}
@@ -50,4 +50,3 @@ public class Controller {
 	
 	}
 
-}
