@@ -6,16 +6,15 @@ import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
 
-public class FiltersCountry extends Filters{
+public class FiltersCountry{
 
 
 	@SuppressWarnings("unlikely-arg-type")
-	public Vector<Evento> FilterCountry (Evento e) {
+	public Vector<Event> FilterCountry (String stato,Vector<Event>  e) {
 		
-		Vector<Evento> eventiFilteredByCountry = new Vector<Evento>();
-		Event event=new Event();
-		for(Evento ef: e) {
-			if(ef.equals(e.getStati()));
+		Vector<Event>  eventiFilteredByCountry = new Vector<Event>();
+		for(Event ef: e) {
+			if(stato.equals(ef.getCountryName()));
 				eventiFilteredByCountry.add(ef);
 			}
 		return eventiFilteredByCountry;

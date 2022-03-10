@@ -1,5 +1,8 @@
 package it.univpm.TicketmasterEsameOOP.controller;
 
+import java.util.Vector;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.TicketmasterEsameOOP.exception.BodyIsEmptyException;
+import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
+import it.univpm.TicketmasterEsameOOP.filters.FiltersGenre;
+import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.service.*;
 import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
 
@@ -44,8 +50,50 @@ public class Controller {
 	public JSONObject getFilteredEvents(@RequestBody JSONObject bodyFilter, @RequestParam(name = "CountryCode", defaultValue = "PL") String CountryCode,
 			@RequestParam(name = "genre") String genre) throws BodyIsEmptyException{
 
-		if(bodyFilter.isEmpty()) throw new BodyIsEmptyException();
-		return new JSONObject(s.toJson(s.parsingbodyfilter(bodyFilter)));
+		//if(bodyFilter.isEmpty()) throw new BodyIsEmptyException();
+		
+		JSONObject obj=new JSONObject();
+
+		JSONObject risultato=new JSONObject();
+		JSONArray eventi=new JSONArray();
+		JSONArray eventi2=new JSONArray();
+		Vector<Evento>eventidaFiltrare=new Vector<Evento>();
+		Vector<Evento>eventidaFiltrare2=new Vector<Evento>();
+		JSONObject eventiFiltratiPerStati=new JSONObject();
+		JSONObject eventiFiltratiPerStati2=new JSONObject();
+		JSONObject eventiFiltratiPerGenere=new JSONObject();
+		JSONObject eventiFiltratiPerGenere2=new JSONObject();
+		JSONObject eventiFiltratiPerGenere3=new JSONObject();
+		JSONObject eventiFiltratiPerGenere4=new JSONObject();
+
+		Evento eb;
+		Vector<String>stati,generi;
+
+		FiltersCountry filtrostati=new FiltersCountry();
+		FiltersGenre filtrogenere=new FiltersGenre();
+
+		eb=s.parsingbodyfilter(bodyFilter);
+
+		stati=eb.getStati();
+		generi=eb.getGeneri();
+		String stato1=stati.get(0);
+		String stato2=stati.get(1);
+		String genere1=generi.get(0);
+		String genere2=generi.get(1);
+		
+		try {
+			eventidaFiltrare=s.(stato1);
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			eventidaFiltrare2=s.getStatoEvents(stato2);
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
+		
+		return obj;
 	}	
 }
 

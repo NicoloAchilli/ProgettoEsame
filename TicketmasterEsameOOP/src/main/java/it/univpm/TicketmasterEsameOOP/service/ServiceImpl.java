@@ -20,6 +20,7 @@ import ch.qos.logback.classic.pattern.FileOfCallerConverter;
 import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
+import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.exception.NoDataException;
 import it.univpm.TicketmasterEsameOOP.filters.Filters;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
@@ -183,4 +184,24 @@ public class ServiceImpl implements Service{
 		return e;
 	}
 	
+	public JSONObject resultFilters (String genre,String country) throws EventiException{
+		
+		FiltersGenre fg=new FiltersGenre();
+		Vector<Event> eventi=new Vector<Event>();
+		
+		eventi=(fg.filterByGenre(genre, parse(country)));
+
+		if(eventi.isEmpty()) {
+			throw new EventiException("Il vettore di eventi per lo stato è vuoto");
+		}
+
+		JSONObject result=toJson(eventi);
+		return result ;
+
+	}
+		
+		
+		
+		return obj;
+	}
 }	

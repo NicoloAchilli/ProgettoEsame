@@ -1,29 +1,31 @@
 package it.univpm.TicketmasterEsameOOP.filters;
 
 import java.util.Vector;
+
+import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
 
-public class FiltersGenre extends Filters{
+public class FiltersGenre{
 
-	public Vector<Evento> filterByGenre(String g,Vector<Evento> eventsFilterdeByCoutry) {
+	public Vector<Event> filterByGenre(String genere,Vector<Event> eventsFilterdeByCoutry) {
 	
-		Vector<Evento> eventiFilteredByGenre = new Vector<Evento>();
+		Vector<Event> eventiFilteredByGenre = new Vector<Event>();
 		
-		for (Evento eventiTemp : eventsFilterdeByCoutry) {	
-				if(g.equals(eventiTemp.getGeneri()))
+		for (Event eventiTemp : eventsFilterdeByCoutry) {	
+				if(genere.equals(eventiTemp.getGenreName()))
 				eventiFilteredByGenre.add(eventiTemp);			
 		}
 		return eventiFilteredByGenre;
 		
 	}
 	
-	public Vector<Evento> FiltroPiuGeneri (String genere1, String genere2, Vector<Evento> eventiDaFiltrare) {
+	public Vector<Event> FiltroPiuGeneri (String genere1, String genere2, Vector<Event> eventiDaFiltrare) {
 		
-		Vector<Evento> eventiFiltrati = new Vector<Evento>();
+		Vector<Event> eventiFiltrati = new Vector<Event>();
 		
-		for (Evento ev : eventiDaFiltrare) {
+		for (Event ev : eventiDaFiltrare) {
 			
-			if(genere1.equals(ev.getGeneri())||genere2.equals(ev.getGeneri()))
+			if(genere1.equals(ev.getGenreName())||genere2.equals(ev.getGenreName()))
 				eventiFiltrati.add(ev);
 		}
 		

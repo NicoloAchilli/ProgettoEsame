@@ -68,4 +68,5 @@ public class Event {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 }
