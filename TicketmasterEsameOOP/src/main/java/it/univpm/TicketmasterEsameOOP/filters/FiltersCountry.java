@@ -1,16 +1,11 @@
 package it.univpm.TicketmasterEsameOOP.filters;
 
 import java.util.Vector;
-
-import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
-import it.univpm.TicketmasterEsameOOP.model.Evento;
 
 public class FiltersCountry{
 
-
-	@SuppressWarnings("unlikely-arg-type")
-	public Vector<Event> FilterCountry (String stato,Vector<Event>  e) {
+	public JSONObject FilterCountry (String stato,Vector<Event>  e) {
 		
 		Vector<Event>  eventiFilteredByCountry = new Vector<Event>();
 		for(Event ef: e) {

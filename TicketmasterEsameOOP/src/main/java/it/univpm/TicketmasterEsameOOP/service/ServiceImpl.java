@@ -22,10 +22,8 @@ import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
 import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.exception.NoDataException;
-import it.univpm.TicketmasterEsameOOP.filters.Filters;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersGenre;
-import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
 
