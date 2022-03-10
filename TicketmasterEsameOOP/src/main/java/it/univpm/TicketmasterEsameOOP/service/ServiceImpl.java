@@ -1,7 +1,6 @@
 package it.univpm.TicketmasterEsameOOP.service;
 
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,19 +11,19 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 import java.util.function.Consumer;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.*;
 import org.json.simple.parser.JSONParser;
+import ch.qos.logback.classic.pattern.FileOfCallerConverter;
 import it.univpm.TicketmasterEsameOOP.model.Event.*;
-import it.univpm.TicketmasterEsameOOP.model.Genre;
-import it.univpm.TicketmasterEsameOOP.model.Genre.*;
+import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
 import it.univpm.TicketmasterEsameOOP.exception.NoDataException;
 import it.univpm.TicketmasterEsameOOP.filters.Filters;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
+import it.univpm.TicketmasterEsameOOP.filters.FiltersGenre;
 import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
@@ -34,7 +33,7 @@ public class ServiceImpl implements Service{
 	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 
-	private Vector<Event> filteredEvents= new Vector<Event>();
+	//private Vector<Event> filteredEvents= new Vector<Event>();
 	
 	@Override
 	public JSONObject getJSONEvents(String country) {
@@ -69,10 +68,9 @@ public class ServiceImpl implements Service{
 		return event;
 	}
 
-	public  Country parse(JSONObject obj1){
+	public  Vector<Event> parse(JSONObject obj1){
 
 		Vector<Event> ae=new Vector<Event>();
-		Country c=new Country();
 
 		JSONObject obj = (JSONObject)obj1;
 		JSONObject event= (JSONObject) obj.get("_embedded");
@@ -101,31 +99,26 @@ public class ServiceImpl implements Service{
 			JSONObject Event2 = (JSONObject) arrayEvent2.get(0);
 			JSONObject Country = (JSONObject) Event2.get("country");
 			String namec=(String) Country.get("name");
-			c.setCountryName(namec);
+			e.setCountryName(namec);
 			String codec=(String) Country.get("countryCode");
-			c.setCountryCode(codec);
+			e.setCountryCode(codec);
 			ae.add(e);
-			c.setEvent(ae);
 		}
-		return c;
+		return ae;
 	}
 
 	@SuppressWarnings({ "unchecked", "unused" })
-	@Override
-	public JSONObject toJson(Country country) {
-
-		StatisticsImpl st=new StatisticsImpl();
+	public JSONObject toJson(Vector<Event>  ev) {
 
 		JSONObject output = new JSONObject();
-		output.put("coutryName", country.getCountryName());	
-		output.put("countryCode", country.getCountryCode());
-		output.put("Numero totale eventi ", country.getEvent().size());
-
 		JSONArray eventList = new JSONArray();
-
-		for(Event singleEvent : country.getEvent()) {
+		
+		for(Event singleEvent : ev) {
 			JSONObject obj = new JSONObject();
-
+			
+			output.put("coutryName", singleEvent.getCountryName());	
+			output.put("countryCode", singleEvent.getCountryCode());
+			
 			obj.put("name", singleEvent.getName());
 			obj.put("id", singleEvent.getId());
 			obj.put("date", singleEvent.getDate());
@@ -171,80 +164,23 @@ public class ServiceImpl implements Service{
 		return event;
 	}
 	
-	public Country getFilteredEvents(JSONObject bodyFilter) {
-		
-		Country c=new Country();
-		try{
-			
-			Filters f0 = new Filters();
-			FiltersCountry f1 = new FiltersCountry();
-			f0.parsingFilters(bodyFilter);
-
-			if (!f0.getFiltersCountry().isEmpty() && !f0.getFiltersGenre().isEmpty()) {
-				for (Filters f : f0.getFiltersCountry()) {
-				}
-				for (Filters f : f0.getFiltersGenre()) {
-					f.toFilter(domainsToFilter2);
-				}
-			}
-			/*if (f0.getFiltersGenre().isEmpty() && !f0.getFiltersCountry().isEmpty()) {
-				for (Filter f : f0.getFiltersCountry()) {
-					System.out.println(f);
-					f.toFilter(domainsToFilter1);
-				}
-			}
-			if (!f0.getFiltersGenre().isEmpty() && f0.getFiltersCountry().isEmpty()) {
-				for (Filter f : f0.getFiltersGenre()) {
-					f.toFilter(domainsToFilter1, ve);
-				}
-			}
-			if (f0.getFiltersGenre().isEmpty() && f0.getFiltersCountry().isEmpty()) {
-				filteredDomains = domainsToFilter1;
-			}
-			for (Filter f : f0.getFilters()) {
-				f.toFilter(ve);
-			}*/
-		}
-		catch(Exception e){
-			System.out.println("ERRORE: GENERICO in getFilteredEvents().");
-			System.out.println("MESSAGGI: " + e.getMessage());
-			System.out.println("CAUSA: " + e.getCause());
-		}
-		for(Event e:filteredEvents)
-			System.out.println(e);
-		return c.getEvent();
+	public Evento parsingbodyfilter(JSONObject bodyFilter){
+		Vector<String> stati=new Vector<String>();
+		Vector<String> generi=new Vector<String>();
+		Evento e=new Evento();
+		JSONArray arrayEvent =(JSONArray) bodyFilter.get("CountryCode");
+		String stato1=(String) arrayEvent.get(0);
+		String stato2=(String) arrayEvent.get(1);
+		stati.add(stato1);
+		stati.add(stato2);
+		e.setGeneri(stati);
+		JSONArray arrayEvent1 =(JSONArray) bodyFilter.get("Genre");
+		String genere1=(String) arrayEvent1.get(0);
+		String genere2=(String) arrayEvent1.get(1);
+		generi.add(genere1);
+		generi.add(genere2);
+		e.setGeneri(generi);
+		return e;
 	}
-	
-	public JSONObject getJSONObjectFilteredEvents(Country c) {
-		JSONObject obj=new JSONObject();
-		JSONObject obj1=new JSONObject();
-		
-		obj1.put(, obj1)
-		
-		
-		
-		
-		obj.put("numero totale eventi", obj1);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return obj;
-	}	
 	
 }	

@@ -1,11 +1,41 @@
 package it.univpm.TicketmasterEsameOOP.model;
 
-public class Event extends Country {
+import java.util.Vector;
+
+public class Event {
 
 	private String id;
 	private String name;
 	private String genreName;
 	private String date;
+	private String countryCode;
+	private String countryName;
+	private Vector<Event> event;
+
+
+	public Vector<Event> getEvent() {
+		return event;
+	}
+
+	public void setEvent(Vector<Event> event) {
+		this.event = event;
+	}
+	
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
 
 	public String getGenreName() {
 		return genreName;
