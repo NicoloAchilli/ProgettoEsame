@@ -70,7 +70,7 @@ public class ServiceImpl implements Service{
 	}
 
 	public  Vector<Event> parse(JSONObject obj1){
-
+		
 		Vector<Event> ae=new Vector<Event>();
 
 		JSONObject obj = (JSONObject)obj1;
@@ -189,7 +189,7 @@ public class ServiceImpl implements Service{
 		FiltersGenre fg=new FiltersGenre();
 		Vector<Event> eventi=new Vector<Event>();
 		
-		eventi=(fg.filterByGenre(genre, parse(country)));
+		eventi=(fg.filterByGenre(genre, parse(getJSONEventsG(country,genre))));
 
 		if(eventi.isEmpty()) {
 			throw new EventiException("Il vettore di eventi per lo stato è vuoto");
@@ -197,11 +197,5 @@ public class ServiceImpl implements Service{
 
 		JSONObject result=toJson(eventi);
 		return result ;
-
-	}
-		
-		
-		
-		return obj;
 	}
 }	

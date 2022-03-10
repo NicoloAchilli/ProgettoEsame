@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.TicketmasterEsameOOP.exception.BodyIsEmptyException;
+import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersGenre;
+import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.service.*;
 import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
@@ -57,8 +59,8 @@ public class Controller {
 		JSONObject risultato=new JSONObject();
 		JSONArray eventi=new JSONArray();
 		JSONArray eventi2=new JSONArray();
-		Vector<Evento>eventidaFiltrare=new Vector<Evento>();
-		Vector<Evento>eventidaFiltrare2=new Vector<Evento>();
+		Vector<Event>eventidaFiltrare=new Vector<Event>();
+		Vector<Event>eventidaFiltrare2=new Vector<Event>();
 		JSONObject eventiFiltratiPerStati=new JSONObject();
 		JSONObject eventiFiltratiPerStati2=new JSONObject();
 		JSONObject eventiFiltratiPerGenere=new JSONObject();
@@ -93,7 +95,19 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		return obj;
+		eventiFiltratiPerStati=filtrostati.FilterCountry(stato1,filtrogenere.FiltroPiuGeneri(genere1, genere2, eventidaFiltrare))));
+		eventiFiltratiPerStati2=filtrostati.FilterCountry(stato2, filtrogenere.FiltroPiuGeneri(genere1, genere2, eventidaFiltrare2))));
+		
+		//eventiFiltratiPerGenere=filtrogenere.FiltroGenere(genere1, eventidaFiltrare);
+		
+		eventiFiltratiPerGenere3=filtrogenere.FiltroGenere(genere1,filtroperiodo.filtroperiodo(inizio, fine,eventidaFiltrare2));
+		Evento ev1=new Evento();
+		ev1=eventidaFiltrare.get(0);
+		
+		risultato.put("Eventi in "+ev1.getStati(),eventiFiltratiPerStati);
+		
+		
+		return risultato;
 	}	
 }
 
