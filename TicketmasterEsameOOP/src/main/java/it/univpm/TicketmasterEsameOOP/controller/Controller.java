@@ -20,7 +20,7 @@ import it.univpm.TicketmasterEsameOOP.filters.FiltersGenre;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.service.*;
-import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
+import it.univpm.TicketmasterEsameOOP.statistics.Statistics;
 
 
 @RestController
