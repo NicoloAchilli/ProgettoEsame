@@ -34,3 +34,9 @@ e offre i seguenti filtri:
 Le richieste che l'utente può effettuare tramite Postman devono essere all'indirizzo:
 
 localhost:8080
+
+## Rotta1   /events
+
+La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferiti alla Polonia.
+
+## Rotta2    
