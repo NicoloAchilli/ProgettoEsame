@@ -21,22 +21,51 @@ import it.univpm.TicketmasterEsameOOP.service.*;
 import it.univpm.TicketmasterEsameOOP.statistics.EventStats;
 import it.univpm.TicketmasterEsameOOP.statistics.MinMaxMediaStats;
 
+/**
+ * Classe che gestisce tutte le chiamate.
+ * 
+ * @author Renzi Luca
+ * @author Achilli Nicolò
+ *
+ */
 
 @RestController
 public class Controller {
 
-	//@Autowired
+	@Autowired
 	private ServiceImpl s=new ServiceImpl();
+	
+	/**
+	 * Rotta di tipo GET che mostra tutti gli eventi e le relative informazioni di un determinato stato.
+	 * 
+	 * 
+	 * @return insieme di eventi dello stato di default, la Polonia
+	 */
 
 	@GetMapping(value="/events")
 	public JSONObject getJSONEvents() throws ParseException{
 		return new JSONObject(s.toJson(s.parse(s.getJSONEvents("PL"))));
 	}
-
+	
+	/**
+	 * Rotta di tipo GET che mostra tutti gli eventi e le relative informazioni di un determinato stato.
+	 * 
+	 * @param CountryCode sigla dello stato di cui si vogliono conoscere gli eventi.
+	 * @return insieme di eventi di un determinato stato.
+	 */
+	
 	@GetMapping(value="/events/{countryCode}")
 	public JSONObject getJSONEvents(@PathVariable String countryCode) throws ParseException{
 		return new JSONObject(s.toJson(s.parse(s.getJSONEvents(countryCode))));
 	}
+	
+	/**
+	 * Rotta di tipo GET che mostra il numero di eventi per un determinato genere.
+	 * 
+	 * @param CountryCode sigla dello stato di cui si vogliono conoscere gli eventi.
+	 * @param genre genere dell'evento.
+	 * @return gli eventi per un deterinato paese e un determinato genere e quelli del paese di default(Polonia) con lo stesso genere
+	 */
 
 	@SuppressWarnings("unchecked")
 	@GetMapping(value="/events/{countryCode}/{genre}")
@@ -47,6 +76,13 @@ public class Controller {
 		
 		return obj;
 	}
+	
+	/**
+	 * Rotta di tipo GET che fornisce il numero minimo/massimo/medio di eventi mensili di uno stato.
+	 * 
+	 * @param CountryCode sigla dello stato di cui si vogliono conoscere gli eventi.
+	 * @return il numero minimo/massimo/medio di eventi mensili di uno stato.
+	 */
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping(value="/{CountryCode}")
@@ -59,6 +95,12 @@ public class Controller {
 		return obj;
 	}
 	
+	/**
+	 * Rotta di tipo GET che mostra il numero totale di eventi per un determinato stato.
+	 * 
+	 * @param Countrycode sigla dello stato di cui si vogliono conoscere gli eventi.
+	 * @return il numero totale degli eventi.
+	 */
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping(value="/eventnum/{CountryCode}")
@@ -70,7 +112,34 @@ public class Controller {
 		return obj;
 	}
 	
-	
+	/**
+	 * Rotta di tipo POST che filtra in base a uno o piu stati, uno o piu generi
+	 *	per il calcolo degli eventi.
+	 * 
+	 * Il body inserito dall' utente deve essere di questo tipo:
+	 * 
+	 * {
+	 *	"stati":[
+     *  	{ 
+     *  	"stato1":"PL"
+     * 	},
+  	 * {
+     *	"stato2":"FR"
+     *	}
+     * ],
+     *	"generi":[
+     *	{
+     *	"genere1":"Music"
+     *	},
+     *	{
+     *	"genere2":"Sport"
+     *	}
+     * ]
+     * }
+     * 
+     * @param bodyFilter Body come indicato in precedenza.
+     * @return le statistiche filtrate in base ai parametri inseriti.
+	*/
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="/filters")
 	public JSONObject getFilteredEvents(@RequestBody String bodyFilter){
