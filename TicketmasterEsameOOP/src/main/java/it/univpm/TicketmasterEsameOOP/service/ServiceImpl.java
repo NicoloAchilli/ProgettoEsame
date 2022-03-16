@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
@@ -14,12 +15,10 @@ import java.util.function.Consumer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.*;
 import org.json.simple.parser.JSONParser;
 import ch.qos.logback.classic.pattern.FileOfCallerConverter;
 import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
-import it.univpm.TicketmasterEsameOOP.statistics.StatisticsImpl;
 import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.exception.NoDataException;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
@@ -31,12 +30,10 @@ public class ServiceImpl implements Service{
 
 	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
-
-	//private Vector<Event> filteredEvents= new Vector<Event>();
 	
 	@Override
 	public JSONObject getJSONEvents(String country) {
-		JSONObject event=null;
+		JSONObject event=new JSONObject();
 		String data = "";
 		String line = "";
 
@@ -69,11 +66,13 @@ public class ServiceImpl implements Service{
 
 	public  Vector<Event> parse(JSONObject obj1){
 		
-		Vector<Event> ae=new Vector<Event>();
-
+		
 		JSONObject obj = (JSONObject)obj1;
 		JSONObject event= (JSONObject) obj.get("_embedded");
 		JSONArray arrayEvent = (JSONArray) event.get("events");	
+		
+		Vector<Event> ae=new Vector<Event>();
+
 
 		for(int i=0; i<arrayEvent.size(); i++) {
 			Event e=new Event();
@@ -162,25 +161,43 @@ public class ServiceImpl implements Service{
 		}
 		return event;
 	}
+	@SuppressWarnings("unused")
+	public Evento readBody(String body) {
+		Vector<String>stati=new Vector<String>();
+		Vector<String>generi=new Vector<String>();
+		Vector<String>periodo=new Vector<String>();
+		Evento eb;
+		JSONObject Body;
+		try {
+			Body= (JSONObject)new JSONParser().parse(body);
 	
-	public Evento parsingbodyfilter(JSONObject bodyFilter){
-		Vector<String> stati=new Vector<String>();
-		Vector<String> generi=new Vector<String>();
-		Evento e=new Evento();
-		JSONArray arrayEvent =(JSONArray) bodyFilter.get("CountryCode");
-		String stato1=(String) arrayEvent.get(0);
-		String stato2=(String) arrayEvent.get(1);
+
+		JSONArray jsonstati=(JSONArray)Body.get("stati");
+
+		JSONObject statetmp=(JSONObject)jsonstati.get(0);
+		JSONObject statetmp2=(JSONObject)jsonstati.get(1);
+
+		String stato1=(String)statetmp.get("stato1");
+		String stato2=(String)statetmp2.get("stato2");
+
 		stati.add(stato1);
 		stati.add(stato2);
-		e.setGeneri(stati);
-		JSONArray arrayEvent1 =(JSONArray) bodyFilter.get("Genre");
-		String genere1=(String) arrayEvent1.get(0);
-		String genere2=(String) arrayEvent1.get(1);
+
+		JSONArray jsongeneri=(JSONArray)Body.get("generi");
+
+		JSONObject genretemp=(JSONObject)jsongeneri.get(0);
+		JSONObject genretemp2=(JSONObject)jsongeneri.get(1);
+		String genere1=(String)genretemp.get("genere1");
+		String genere2=(String)genretemp2.get("genere2");
+
 		generi.add(genere1);
 		generi.add(genere2);
-		e.setGeneri(generi);
-		return e;
-	}
+		} catch (org.json.simple.parser.ParseException e) {
+			e.printStackTrace();
+		}
+		return eb=new Evento(stati,generi);
+
+	}	
 	
 	public JSONObject resultFilters (String genre,String country) throws EventiException{
 		
