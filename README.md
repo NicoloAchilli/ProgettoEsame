@@ -39,4 +39,6 @@ localhost:8080
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferiti alla Polonia.
 
-## Rotta2    
+## Rotta2   /events/{coutnryCode}
+
+La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferite ad un determinato Paese passato come parametro.
