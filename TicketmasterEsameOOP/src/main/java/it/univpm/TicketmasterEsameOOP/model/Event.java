@@ -10,16 +10,22 @@ public class Event {
 	private String date;
 	private String countryCode;
 	private String countryName;
-	private Vector<Event> event;
 
 
-	public Vector<Event> getEvent() {
-		return event;
+	public Event(String id, String name, String genreName, String date, String countryCode, String countryName) {
+		this.id = id;
+		this.name = name;
+		this.genreName = genreName;
+		this.date = date;
+		this.countryCode = countryCode;
+		this.countryName = countryName;
 	}
-
-	public void setEvent(Vector<Event> event) {
-		this.event = event;
-	}
+	
+	public Event(){};
+	
+	public Event(String name) {
+		this.name=name;
+	};
 	
 	public String getCountryCode() {
 		return countryCode;
