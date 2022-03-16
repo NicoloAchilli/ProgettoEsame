@@ -42,3 +42,7 @@ La rotta restituisce un JSONObject contenente tutti gli eventi e le relative inf
 ## Rotta2   /events/{coutnryCode}
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferite ad un determinato Paese passato come parametro.
+
+ ## Rotta3   /events/{contryCode}/{genre}
+ 
+ La rotta restituisce un JSONObject contenente gli eventi e il genere 
