@@ -1,35 +1,24 @@
 package it.univpm.TicketmasterEsameOOP.filters;
 
 import java.util.Vector;
+
+import org.json.simple.JSONObject;
+
 import it.univpm.TicketmasterEsameOOP.model.Event;
+import it.univpm.TicketmasterEsameOOP.statistics.EventStats;
 
 public class FiltersCountry{
 
-	public JSONObject FilterCountry (String stato,Vector<Event>  e) {
+	public JSONObject FilterCountry (String country,Vector<Event>  e) {
+		
+		EventStats stats=new EventStats();
 		
 		Vector<Event>  eventiFilteredByCountry = new Vector<Event>();
 		for(Event ef: e) {
-			if(stato.equals(ef.getCountryName()));
+			if(country.equals(ef.getCountryName()));
 				eventiFilteredByCountry.add(ef);
 			}
-		return eventiFilteredByCountry;
+		return 	stats.TotEventi(eventiFilteredByCountry);
 }
 }
 
-
-/*public JSONObject FiltroStati(String stato, Vector<Evento> eventiDaFiltrare) {
-
-	EventStats stats=new EventStats();
-
-	Vector<Evento> eventiFiltrati=new Vector<Evento>();
-
-	for(Evento eventiTemp:eventiDaFiltrare) {
-
-		if(stato.equals(eventiTemp.getStateCode()))
-			eventiFiltrati.add(eventiTemp);
-
-	}
-
-	return 	stats.TotEventi(eventiFiltrati);
-
-}*/
