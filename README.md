@@ -28,3 +28,9 @@ L'applicazione sviluppata fornisce le seguenti statistiche:
 e offre i seguenti filtri:
 * filtro eventi in Europa in base a uno o più Paesi.
 * filtro eventi in Europa in base a di uno o più generi.
+
+
+## Rotte
+Le richieste che l'utente può effettuare tramite Postman devono essere all'indirizzo:
+
+localhost:8080
