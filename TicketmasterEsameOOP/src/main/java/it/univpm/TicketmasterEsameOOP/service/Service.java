@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import org.json.simple.JSONObject;
 
+import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
@@ -15,7 +16,7 @@ public interface Service {
 
 	
 	abstract JSONObject getJSONEventsPL();
-	abstract Vector<Event> parse(JSONObject obj1) throws org.json.simple.parser.ParseException;
+	abstract Vector<Event> parse(JSONObject obj1) throws org.json.simple.parser.ParseException, EventiException;
 	abstract JSONObject toJson(Event event);
 	abstract Evento parsingbodyfilter(JSONObject bodyFilter);
 
