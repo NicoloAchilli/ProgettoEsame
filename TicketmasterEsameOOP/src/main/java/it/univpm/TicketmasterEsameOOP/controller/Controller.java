@@ -138,7 +138,7 @@ public class Controller {
      * }
      * 
      * @param bodyFilter Body come indicato in precedenza.
-     * @return le statistiche filtrate in base ai parametri inseriti.
+     * @return gli eventi in base ai parametri inseriti.
 	*/
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="/filters")
