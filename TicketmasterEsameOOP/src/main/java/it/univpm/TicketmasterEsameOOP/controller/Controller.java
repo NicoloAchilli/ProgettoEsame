@@ -44,7 +44,13 @@ public class Controller {
 
 	@GetMapping(value="/events")
 	public JSONObject getJSONEvents() throws ParseException{
-		return new JSONObject(s.toJson(s.parse(s.getJSONEvents("PL"))));
+		JSONObject obj=new JSONObject();
+		try {
+			obj= new JSONObject(s.toJson(s.parse(s.getJSONEvents("PL"))));
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 	
 	/**
@@ -56,11 +62,17 @@ public class Controller {
 	
 	@GetMapping(value="/events/{countryCode}")
 	public JSONObject getJSONEvents(@PathVariable String countryCode) throws ParseException{
-		return new JSONObject(s.toJson(s.parse(s.getJSONEvents(countryCode))));
+		JSONObject obj=new JSONObject();
+		try {
+			obj= new JSONObject(s.toJson(s.parse(s.getJSONEvents(countryCode))));
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 	
 	/**
-	 * Rotta di tipo GET che mostra il numero di eventi per un determinato genere.
+	 * Rotta di tipo GET che mostra gli eventi per un determinato genere.
 	 * 
 	 * @param CountryCode sigla dello stato di cui si vogliono conoscere gli eventi.
 	 * @param genre genere dell'evento.
@@ -71,8 +83,16 @@ public class Controller {
 	@GetMapping(value="/events/{countryCode}/{genre}")
 	public JSONObject getJSONEvents(@PathVariable String countryCode, @PathVariable String genre){
 		JSONObject obj=new JSONObject();
-		obj.put("Default (PL)", s.toJson(s.parse(s.getJSONEvents("PL"))));
-		obj.put("Scelta utente",s.toJson(s.parse(s.getJSONEventsG(countryCode,genre))));
+		try {
+			obj.put("Default (PL)", s.toJson(s.parse(s.getJSONEventsG("PL",genre))));
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
+		try {
+			obj.put("Scelta utente",s.toJson(s.parse(s.getJSONEventsG(countryCode,genre))));
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
 		
 		return obj;
 	}
@@ -173,9 +193,17 @@ public class Controller {
 		String genere1=generi.get(0);
 		String genere2=generi.get(1);
 
-		eventidaFiltrare=s.parse(s.getJSONEvents(stato1));
+		try {
+			eventidaFiltrare=s.parse(s.getJSONEvents(stato1));
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
 
-		eventidaFiltrare2=s.parse(s.getJSONEvents(stato2));
+		try {
+			eventidaFiltrare2=s.parse(s.getJSONEvents(stato2));
+		} catch (EventiException e) {
+			e.printStackTrace();
+		}
 
 		eventiFiltratiPerStato=filtrostati.FilterCountry(stato1,filtrogenere.FiltroPiuGeneri(genere1, genere2, eventidaFiltrare));
 		eventiFiltratiPerGenere=filtrogenere.FiltroGenere(genere1, eventidaFiltrare);

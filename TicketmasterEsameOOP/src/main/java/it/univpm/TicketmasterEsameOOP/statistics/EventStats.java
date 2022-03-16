@@ -11,23 +11,40 @@ import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.service.ServiceImpl;
 
+/**
+ * 
+ * Classe che fornisce le statistiche degli eventi di uno stato.
+ *
+ */
+
 public class EventStats {
 	ServiceImpl s=new	ServiceImpl();
 	private int[]monthsEvents=new int[12];
 	private int[] months;
-	
+
+	/**
+	 * Metodo che analizza l'API e restituisce un vettore contenente il numero di eventi mensili.
+	 * 
+	 * @param country nome dello stato di cui si vogliono visualizzare gli eventi.
+	 * @return monthsEvents Vettore contente il numero di eventi mensili.
+	 */
 	public int[] MonthsEvents(String country) {
 
 		Vector<Event>eventiPerStato=new Vector<Event>();
-		
-		eventiPerStato=s.parse(s.getJSONEvents(country));
+
+		try {
+			eventiPerStato=s.parse(s.getJSONEvents(country));
+		} catch (EventiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Event ev=new Event();
 
 		monthsEvents=new int[12];
 
 		for(int i=0;i<eventiPerStato.size();i++) {
 
-			
+
 			ev=eventiPerStato.get(i);
 			LocalDate mese1=dateConverter(ev.getDate()); 
 
@@ -50,19 +67,25 @@ public class EventStats {
 				mese2.plusMonths(cont);
 			}
 		}
-		
+
 		return monthsEvents;
 
 	}
-	
+
 	public LocalDate dateConverter(String date) {
 
 		LocalDate localdate = LocalDate.parse((CharSequence) date);
-		
+
 		return localdate;
-	
+
 	}
-	
+
+	/**
+	 * Metodo che analizza il vettore di eventi filtrati per genere e stato e restituisce un vettore contenente il numero di eventi mensili.
+	 * 
+	 * @param eventiFiltrati Vettore di eventi filtrati per genere e stato.
+	 * @return monthsEvents Vettore contente il numero di eventi mensili.
+	 */
 	public int[] MonthsEventsFiltrati (Vector<Event>eventiFiltrati) {
 
 		Event ev=new Event();
@@ -71,7 +94,7 @@ public class EventStats {
 
 		for(int i=0;i<eventiFiltrati.size();i++) {
 
-			
+
 			ev=eventiFiltrati.get(i);
 			LocalDate mese1=dateConverter(ev.getDate()); 
 
@@ -94,45 +117,59 @@ public class EventStats {
 				mese2.plusMonths(cont);
 			}
 		}
-		
+
 		return monthsEvents;
 
 	}
-	
-@SuppressWarnings("unchecked")
-public JSONObject TotEventi(Vector<Event>eventidaFiltrare) {
-		
+
+	/**
+	 *
+	 * Metodo che fornisce il JSONObject contente il numero totale di eventi di uno Stato (utilizzato nello FilterCountry).
+	 * 
+	 * @param eventidaFiltrare Vettore contente gli eventi da filtrare.
+	 * @return obj JSONObject contenente il numero totale di eventi di uno Stato.
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject TotEventi(Vector<Event>eventidaFiltrare) {
+
 		JSONObject obj=new JSONObject();
 
 		int eventiTot=0;
-		
+
 		monthsEvents=MonthsEventsFiltrati(eventidaFiltrare);
-		
+
 		for(int i=0;i<monthsEvents.length;i++) {
 			eventiTot+=monthsEvents[i];	
 		}
 		obj.put("Totale", eventiTot);	
 
 		return obj;
-		
+
 	}
 
-@SuppressWarnings("unchecked")
-public JSONObject totEventi(String stateCode) {
+	/**
+	 *
+	 * Metodo che fornisce il JSONObject contente il numero totale di eventi di uno Stato (utilizzato nella classe Controller).
+	 * 
+	 * @param country Statecode dello stato di cui si vogliono visualizzare gli eventi.
+	 * @return obj JSONObject contenente il numero totale di eventi di uno Stato.
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject totEventi(String country) {
 
-	JSONObject obj=new JSONObject();
+		JSONObject obj=new JSONObject();
 
-	int eventiTot=0;
-	
-	monthsEvents=MonthsEvents(stateCode);
-	
-	for(int i=0;i<monthsEvents.length;i++) {
-		eventiTot+=monthsEvents[i];	
-		
+		int eventiTot=0;
+
+		monthsEvents=MonthsEvents(country);
+
+		for(int i=0;i<monthsEvents.length;i++) {
+			eventiTot+=monthsEvents[i];	
+
+		}
+		obj.put("Totale Eventi", eventiTot);	
+
+		return obj;
+
 	}
-	obj.put("Totale Eventi", eventiTot);	
-
-	return obj;
-	
-}
 }

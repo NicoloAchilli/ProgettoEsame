@@ -1,18 +1,18 @@
 package it.univpm.TicketmasterEsameOOP.service;
-
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
 
 import it.univpm.TicketmasterEsameOOP.exception.EventiException;
-import it.univpm.TicketmasterEsameOOP.model.Country;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
-import it.univpm.TicketmasterEsameOOP.statistics.Statistics;
 
-public interface Service {
+/**
+ *Interfaccia di Service che contiene i metodi richiamati dal Controller
+ *
+ */
+
+public interface service{
 
 	
 	abstract JSONObject getJSONEventsPL();

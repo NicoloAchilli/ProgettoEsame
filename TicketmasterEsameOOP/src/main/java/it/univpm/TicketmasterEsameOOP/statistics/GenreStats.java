@@ -7,8 +7,22 @@ import org.json.simple.JSONObject;
 import it.univpm.TicketmasterEsameOOP.exception.EventiException;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
+/**
+ * 
+ * Classe che fornisce le statistiche degli eventi per un determinato genere.
+ *
+ */
 public class GenreStats {
 	
+	/**
+	 * 
+	 * Classe che fornisce il numero totale di eventi per un determinato genere.
+	 * 
+	 * @param eventiFiltrati Vettore di eventi filtrati per un determinato genere.
+	 * @param genre tipologia di evento per il filtro.
+	 * @return obj JSONObject contente il numero di eventi per un determinato genere.
+	 * @throws EventiException se non è presente alcun evento per un determinato genere.
+	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject GenreEventi(Vector<Event>eventiFiltrati,String genre) throws EventiException {
 		

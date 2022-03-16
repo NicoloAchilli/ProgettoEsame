@@ -1,12 +1,17 @@
 package it.univpm.TicketmasterEsameOOP.exception;
 
 public class EventiException extends Exception{
-		
-		 public EventiException() {
+	
+	/**
+	 * 
+	 * Classe che gestisce le eccezioni personalizzate
+	 *
+	 */
+	 public EventiException() {
 		        super();
 		    }
-
-		    public EventiException(String stringa) {
+	 
+	 public EventiException(String stringa) {
 		        super(stringa);
 		    }
 

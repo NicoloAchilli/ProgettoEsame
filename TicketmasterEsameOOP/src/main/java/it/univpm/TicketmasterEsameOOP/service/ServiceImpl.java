@@ -1,6 +1,8 @@
 package it.univpm.TicketmasterEsameOOP.service;
 
 import java.io.BufferedReader;
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,22 +18,33 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Service;
+
 import ch.qos.logback.classic.pattern.FileOfCallerConverter;
 import it.univpm.TicketmasterEsameOOP.model.Event.*;
 import it.univpm.TicketmasterEsameOOP.model.Evento;
 import it.univpm.TicketmasterEsameOOP.exception.EventiException;
-import it.univpm.TicketmasterEsameOOP.exception.NoDataException;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersCountry;
 import it.univpm.TicketmasterEsameOOP.filters.FiltersGenre;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 
+/**
+ * Implementazione dell'interfaccia service.
+ */
 
-public class ServiceImpl implements Service{
+@Service
+public class ServiceImpl implements service{
 
 	private String url = "https://app.ticketmaster.com/discovery/v2/events.json?";
 	private String apiKey = "WGbdslACGAbDUNgCjGnrpZQrvnq299KR";
 	
-	@Override
+	/**
+	 * Metodo che analizza l'API di ticketmaster e restituisce il JSONObject filtrato per paese.
+	 * 
+	 * @param CountryCode sigla dello stato di cui si vogliono visualizzare gli eventi.
+	 * @return JSONObject dell'evento.
+	 */
+	
 	public JSONObject getJSONEvents(String country) {
 		JSONObject event=new JSONObject();
 		String data = "";
@@ -64,7 +77,15 @@ public class ServiceImpl implements Service{
 		return event;
 	}
 
-	public  Vector<Event> parse(JSONObject obj1){
+	/**
+	 * Metodo che, tramite il JSONObject di eventi, costruice il Vettore di tipo Event.
+	 * 
+	 * @param JSONObject dello stato di cui si vogliono visualizzare gli eventi.
+	 * @return Vettore di tipo Event.
+	 * @throws EventiException se il vettore di Eventi è vuoto.
+	 */
+	
+	public  Vector<Event> parse(JSONObject obj1) throws EventiException{
 		
 		
 		JSONObject obj = (JSONObject)obj1;
@@ -101,10 +122,21 @@ public class ServiceImpl implements Service{
 			String codec=(String) Country.get("countryCode");
 			e.setCountryCode(codec);
 			ae.add(e);
+		}		
+		if (ae.isEmpty()) {
+			throw new EventiException("Il vettore di eventi è vuoto");
 		}
+		
 		return ae;
 	}
 
+	/**
+	 * Metodo che converte il Vettore di tipo Event in un JSONObject.
+	 * 
+	 * @param  Vettore di tipo Event
+	 * @return  JSONObject del vettore.
+	 */
+	
 	@SuppressWarnings({ "unchecked", "unused" })
 	public JSONObject toJson(Vector<Event>  ev) {
 
@@ -129,6 +161,14 @@ public class ServiceImpl implements Service{
 
 		return output;
 	}
+	
+	/**
+	 * Metodo che analizza l'API di ticketmaster e restituisce il JSONObject filtrato per paese e per genere.
+	 * 
+	 * @param CountryCode sigla dello stato di cui si vogliono visualizzare gli eventi.
+	 * @param genre tipologia di evento
+	 * @return JSONObject dell'evento.
+	 */
 	
 	public JSONObject getJSONEventsG(String country,String genre) {
 		JSONObject event=null;
@@ -161,6 +201,34 @@ public class ServiceImpl implements Service{
 		}
 		return event;
 	}
+	
+	/**
+	 * Metodo che legge il body e crea l'oggetto di tipo Evento.
+	 * Il body inserito dall' utente deve essere di questo tipo:
+	 * 
+	 * {
+	 *	"stati":[
+     *  	{ 
+     *  	"stato1":"PL"
+     * 	},
+  	 * {
+     *	"stato2":"FR"
+     *	}
+     * ],
+     *	"generi":[
+     *	{
+     *	"genere1":"Music"
+     *	},
+     *	{
+     *	"genere2":"Sport"
+     *	}
+     * ]
+     * }
+     * 
+	 *@param body Stringa del body in ingresso.
+	 *@return Oggetto di tipo Evento.
+	 */
+	
 	@SuppressWarnings("unused")
 	public Evento readBody(String body) {
 		Vector<String>stati=new Vector<String>();
@@ -198,6 +266,15 @@ public class ServiceImpl implements Service{
 		return eb=new Evento(stati,generi);
 
 	}	
+	
+	/**
+	 * Metodo che restituisce il risultato del JSONObject degli eventi filtrati per genere e stato.
+	 * 
+	 * @param Countrycode sigla dello stato di cui si vogliono visualizzare gli eventi.
+	 * @param genre tipologia di evento.
+	 * @return result JSONObject degli eventi filtrati.
+	 * @throws EventiException se il vettore filtrato è vuoto.
+	 */
 	
 	public JSONObject resultFilters (String genre,String country) throws EventiException{
 		
