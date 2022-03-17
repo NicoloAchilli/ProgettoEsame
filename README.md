@@ -38,15 +38,121 @@ localhost:8080
 ## Rotta1 GET /events
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferiti alla Polonia.
-
+```json
+{
+    "coutryName": "Poland",
+    "countryCode": "PL",
+    "events": [
+        {
+            "date": "2022-03-17",
+            "name": "Michał Wiśniewski Akustycznie Część 2 - ZAWSZE NAPRZÓD - NIGDY WSTECZ",
+            "genre": "Music",
+            "id": "Z698xZQpZa7cv"
+        },
+        {
+            "date": "2022-03-19",
+            "name": "Paddy and the Rats",
+            "genre": "Music",
+            "id": "Z698xZQpZa7md"
+        },
+        {
+            "date": "2022-03-19",
+            "name": "Strażak Sam Na Żywo - Cyrkowa Przygoda",
+            "genre": "Miscellaneous",
+            "id": "Z698xZQpZaA-M"
+        },
+        {
+            "date": "2022-03-18",
+            "name": "Punky Reggae live 2022: Farben Lehnre + Kobranocka + Gutek + support",
+            "genre": "Music",
+            "id": "Z698xZQpZaAE4"
+        }
+    ]
+}
+```
 ## Rotta2 GET /events/{coutnryCode}
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferite ad un determinato Paese passato come parametro.
-
+```json
+    "coutryName": "Germany",
+    "countryCode": "DE",
+    "events": [
+        {
+            "date": "2022-06-14",
+            "name": "Imagine Dragons | Ultimate Imagine Dragons Fan Experience",
+            "genre": "Music",
+            "id": "Z698xZC2Z178z7M"
+        },
+        {
+            "date": "2022-06-14",
+            "name": "Imagine Dragons - Mercury World Tour",
+            "genre": "Music",
+            "id": "Z698xZC2Z178zZ_"
+        },
+        {
+            "date": "2022-07-05",
+            "name": "Imagine Dragons | Ultimate Imagine Dragons Fan Experience",
+            "genre": "Music",
+            "id": "Z698xZC2Z178zFE"
+        },
+        {
+            "date": "2022-07-05",
+            "name": "Imagine Dragons - Mercury World Tour",
+            "genre": "Music",
+            "id": "Z698xZC2Z178zZP"
+        },
+     ]
+}
+```
  ## Rotta3 GET /events/{contryCode}/{genre}
  
  La rotta restituisce un JSONObject contenente gli eventi del Paese e del genere passati come parametro, facendo il confronto degli eventi in Polonia dello stesso genere passato prima come parametro.
- 
+ ```json
+ {
+    "Default (PL)": {
+        "countryCode": "PL",
+        "coutryName": "Poland",
+        "events": [
+            {
+                "date": "2022-06-30",
+                "name": "HIP HOP KOPALNIA FESTIWAL - pole namiotowe",
+                "genre": "Music",
+                "id": "Z698xZQpZaARo"
+            },
+            {
+                "date": "2022-07-01",
+                "name": "HIP HOP KOPALNIA FESTIWAL",
+                "genre": "Music",
+                "id": "Z698xZQpZaAtd"
+            },
+            {
+                "date": "2022-07-15",
+                "name": "JAROCIN FESTIWAL 2022 - KARNET 3-DNIOWY",
+                "genre": "Music",
+                "id": "Z698xZQpZaAYy"
+            },
+            {
+                "date": "2022-03-26",
+                "name": "World Orchestra Grzech Piotrowski",
+                "genre": "Music",
+                "id": "Z698xZQpZaARS"
+            }
+        ]
+    },
+    "Scelta utente": {
+        "countryCode": "FR",
+        "coutryName": "France",
+        "events": [
+            {
+                "date": "2022-07-03",
+                "name": "Indochine (with coach)",
+                "genre": "Music",
+                "id": "Z698xZG2Za10h"
+            }
+        ]
+    }
+}
+```
   ## Rotta4 GET /{contryCode}
  
 La rotta restituisce un JSONObject contenente le statistiche del numero minimo/massimo/medio degli eventi del Paese passato come parametro, facendo il confronto degli eventi in Polonia inserito come parametro di default.
