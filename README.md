@@ -74,6 +74,7 @@ La rotta restituisce un JSONObject contenente tutti gli eventi e le relative inf
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferite ad un determinato Paese passato come parametro.
 ```json
+{
     "coutryName": "Germany",
     "countryCode": "DE",
     "events": [
@@ -106,7 +107,7 @@ La rotta restituisce un JSONObject contenente tutti gli eventi e le relative inf
 ```
  ## Rotta3 GET /events/{contryCode}/{genre}
  
- La rotta restituisce un JSONObject contenente gli eventi del Paese e del genere passati come parametro, facendo il confronto degli eventi in Polonia dello stesso genere passato prima come parametro.
+ La rotta restituisce un JSONObject contenente gli eventi del Paese e del genere passati come parametro, facendo il confronto degli eventi in Polonia dello stesso genere passato prima come parametro di default.
  ```json
  {
     "Default (PL)": {
@@ -156,14 +157,61 @@ La rotta restituisce un JSONObject contenente tutti gli eventi e le relative inf
   ## Rotta4 GET /{contryCode}
  
 La rotta restituisce un JSONObject contenente le statistiche del numero minimo/massimo/medio degli eventi del Paese passato come parametro, facendo il confronto degli eventi in Polonia inserito come parametro di default.
- 
+ ```json
+{
+    "Utente": {
+        "Statistiche mensili": {
+            "numero medio di eventi": 0.08333333333333333,
+            "numero massimo di eventi": 1,
+            "numero minimo di eventi": 0
+        }
+    },
+    "Default (PL)": {
+        "Statistiche mensili": {
+            "numero medio di eventi": 1.6666666666666667,
+            "numero massimo di eventi": 20,
+            "numero minimo di eventi": 0
+        }
+    }
+}
+ ```
  ## Rotta5 GET/eventnum/{contryCode}
  La rotta restituisce un JSONObject contenente il numero totale degli eventi del Paese passato come parametro, facendo il confronto degli eventi in Polonia inserito come parametro di default.
- 
+  ```json
+ {
+    "Utente": {
+        "Totale Eventi": 1
+    },
+    "Default (PL)": {
+        "Totale Eventi": 20
+    }
+}
+ ```
  ## Rotta6 POST /filtres 
  
-La rotta restituisce un JSONObject contenente una lista di eventi filtrati per uno o più Paesi e per uno o più generi.
-
+La rotta restituisce un JSONObject contenente una lista di eventi filtrati per uno o più Paesi e per uno o più generi.Richiede un body di questo tipo:
+  ```json
+{
+    "stati":[
+        { 
+            	"stato1":"PL"
+        },
+        { 
+            	"stato1":"DE"
+        }
+    ],
+    "generi":[
+        {
+            "genere1":"Music"
+        },
+        {
+            "genere2":"Sport"
+        }
+    ]
+}
+```
+- **stati** è il JSONArray che contiene gli stateCode degli stati di cui si vuole fare il filtraggio.
+- **generi** è il JSONArray che contiene i generi degli eventi relativi al rispettivo stato di cui si vuole fare statistica.
 ## Documentazione JavaDoc
 
 Il codice java dell'applicazione "TicketMasterEsameOOP" è interamente documentato attraverso Javadoc.
