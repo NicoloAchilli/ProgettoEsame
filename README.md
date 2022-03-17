@@ -57,6 +57,13 @@ La rotta restituisce un JSONObject contenente una lista di eventi filtrati per u
 
 Il codice java dell'applicazione "TicketMasterEsameOOP" è interamente documentato attraverso Javadoc.
 
+## JUnit Test
+All'interno del progetto è presente anche un package di test contente le seguenti classi:
+
+* [toJSONtest], un test del metodo toJSON contenuto nella classe ServiceImpl che verifica se l'oggetto viene convertito correttamente in JSONObject.
+
+* [MinMaxMediaStatsTest], un test dei tre metodi contenuti nella classe MinMaxMedia che verifica se il calcolo del minimo,massimo e medio di un vettore è corretto.
+
 ## Software utilizzati
 
 * L'IDE [Eclipse](https://www.eclipse.org/downloads/) per la scrittura del codice dell'intero applicativo
