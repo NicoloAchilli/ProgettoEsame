@@ -1,2 +1,7 @@
 it.univpm.TicketmasterEsameOOP
+it.univpm.TicketmasterEsameOOP.controller
+it.univpm.TicketmasterEsameOOP.exception
+it.univpm.TicketmasterEsameOOP.filters
+it.univpm.TicketmasterEsameOOP.model
 it.univpm.TicketmasterEsameOOP.service
+it.univpm.TicketmasterEsameOOP.statistics
