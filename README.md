@@ -35,14 +35,18 @@ Le richieste che l'utente può effettuare tramite Postman devono essere all'indi
 
 localhost:8080
 
-## Rotta1   /events
+## Rotta1 GET /events
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferiti alla Polonia.
 
-## Rotta2   /events/{coutnryCode}
+## Rotta2 GET /events/{coutnryCode}
 
 La rotta restituisce un JSONObject contenente tutti gli eventi e le relative informazioni riferite ad un determinato Paese passato come parametro.
 
- ## Rotta3   /events/{contryCode}/{genre}
+ ## Rotta3 GET /events/{contryCode}/{genre}
  
- La rotta restituisce un JSONObject contenente gli eventi e il genere 
+ La rotta restituisce un JSONObject contenente gli eventi del Paese e del genere passati come parametro, facendo il confronto degli eventi in Polonia dello stesso genere passato prima come parametro.
+ 
+ ## Rotta4 POST /filtres 
+ 
+La rotta restituisce un JSONObject contenente 
