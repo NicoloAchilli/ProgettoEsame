@@ -17,7 +17,7 @@
 
 
 ## Introduzione
-"TicketMasterOOP" è un'applicazione che consente all'utente di confrontare le statistiche degli eventi che avranno luogo in Europa e in Polonia, utilizzando le APi di ticketmaster, sito per la gestione ed la prenotazione di vari eventi (musicali, artistici, sportivi, ecc...).
+"TicketMasterEEsameOOP" è un'applicazione che consente all'utente di confrontare le statistiche degli eventi che avranno luogo in Europa e in Polonia, utilizzando le APi di ticketmaster, sito per la gestione ed la prenotazione di vari eventi (musicali, artistici, sportivi, ecc...).
 
 ## Statistiche e Filtri
 L'applicazione sviluppata fornisce le seguenti statistiche:
@@ -49,4 +49,9 @@ La rotta restituisce un JSONObject contenente tutti gli eventi e le relative inf
  
  ## Rotta4 POST /filtres 
  
-La rotta restituisce un JSONObject contenente 
+La rotta restituisce un JSONObject contenente una lista di eventi filtrati per Paese e genere.
+
+## Documentazione JavaDoc
+
+Il codice java dell'applicazione "TicketMasterEsameOOP" è interamente documentato attraverso Javadoc.
+
