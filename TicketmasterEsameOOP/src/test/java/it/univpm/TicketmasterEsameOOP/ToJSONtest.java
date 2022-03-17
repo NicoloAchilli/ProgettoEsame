@@ -13,10 +13,19 @@ import org.junit.jupiter.api.BeforeEach;
 import it.univpm.TicketmasterEsameOOP.model.Event;
 import it.univpm.TicketmasterEsameOOP.service.ServiceImpl;
 
+/**
+ * Classe che testa il funzionamento del metodo toJSON.
+ *
+ */
 public class ToJSONtest {
 	Event ev;
 	Vector <Event> eventi;
 	ServiceImpl test;
+	
+	/**
+	 * Inizializza i componenti necessari per il test.
+	 * @throws Exception
+	 */
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -25,10 +34,17 @@ public class ToJSONtest {
 		test=new ServiceImpl();
 	}
 	
+	/**
+	 * Serve per distruggere ciò che è stato inizializzato dal metodo setUp.
+	 * @throws Exception
+	 */
 	@AfterEach
 	void tearDown() throws Exception {
 	}
 	
+	/**
+	 * Test che verifica se l'oggetto eventi viene convertito correttamente in JSONObject.
+	 */
 	@SuppressWarnings("unchecked")
 	@Test
 	void test() {
