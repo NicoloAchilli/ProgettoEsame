@@ -47,11 +47,16 @@ La rotta restituisce un JSONObject contenente tutti gli eventi e le relative inf
  
  La rotta restituisce un JSONObject contenente gli eventi del Paese e del genere passati come parametro, facendo il confronto degli eventi in Polonia dello stesso genere passato prima come parametro.
  
- ## Rotta4 POST /filtres 
+  ## Rotta4 GET /{contryCode}
+ 
+La rotta restituisce un JSONObject contenente le statistiche del numero minimo/massimo/medio degli eventi del Paese passato come parametro, facendo il confronto degli eventi in Polonia inserito come parametro di default.
+ 
+ ## Rotta5 GET/eventnum/{contryCode}
+ La rotta restituisce un JSONObject contenente il numero totale degli eventi del Paese passato come parametro, facendo il confronto degli eventi in Polonia inserito come parametro di default.
+ 
+ ## Rotta6 POST /filtres 
  
 La rotta restituisce un JSONObject contenente una lista di eventi filtrati per uno o più Paesi e per uno o più generi.
-
-## Rotta5 /stats
 
 ## Documentazione JavaDoc
 
