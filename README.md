@@ -78,4 +78,5 @@ Il codice java dell'applicazione "TicketMasterEsameOOP" è interamente documenta
 Autori del progetto: 
 
 -Nicolò Achilli
+
 -Luca Renzi
