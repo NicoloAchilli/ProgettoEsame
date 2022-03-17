@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"it.univpm.TicketmasterEsameOOP","l":"MinMaxMediaStastTest"},{"p":"it.univpm.TicketmasterEsameOOP.service","l":"service"},{"p":"it.univpm.TicketmasterEsameOOP","l":"ToJSONtest"}];updateSearchResults();
